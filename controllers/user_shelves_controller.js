@@ -1,9 +1,20 @@
 const UserShelves = require('../models/User_Shelves');
 
 const userShelvesController = {
-    
+    //user shelves are created through the shelves_controller
+    update(req, res, next) {
+        UserShelves.getUserShelfById(req.params.id)
+        .then(shelf => {
+            return shelf.update(req.body)
+        })
+        .then(() => {
+            res.json({
+                message: 'Shelf successfully updated.'
+            })
+        })
+    },
     destroy(req, res, next) {
-        Shelves.getShelfById(req.params.id)
+        UserShelves.getShelfById(req.params.id)
         .then(shelf => {
             return shelf.delete()
         })
