@@ -22,6 +22,8 @@
 	- will probably want a loading graphic
 - user can change a book shelf they created from public to private and vice versa
 - user can delete a book shelf they create
+## Trello Board
+- [Trello](https://trello.com/b/biDiylz8/upreads)
 
 ## Wireframes
 ![wireframes](https://s3.amazonaws.com/assets.mockflow.com/app/wireframepro/company/C3ee824ba2206bfc4bd6dbfa780080d63/projects/M1e9267fed56f7149f4c51bccbc3103ff1600292020009/pages/0daa54557ac449818a9c44ab5ea7977e/image/0daa54557ac449818a9c44ab5ea7977e.png)
