@@ -8,6 +8,7 @@ const session = require('express-session');
 const passport = require('passport');
 
 //routers
+const shelfRouter = require('./routes/shelves_router');
 
 //app intialize
 const app = express()
@@ -43,6 +44,7 @@ app.get('/', (req, res) => {
         message: 'Hello World'
     })
 })
+app.use('/api/v1', shelfRouter);
 
 // if environment, is production send to react to handle routing
 app.use('*', (req, res) => {

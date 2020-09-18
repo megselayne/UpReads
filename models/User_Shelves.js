@@ -6,6 +6,14 @@ class UserShelves {
         this.shelf_id = shelf_id;
     }
 
+    static getUserShelfById(id) {
+        return db.oneOrNone(`SELECT * FROM user_shelves WHERE id = $1`, id)
+        .then(shelf => {
+            if(shelf) return new this(shelf);
+            throw new Error('User shelf not found!')
+        });
+    }
+
     static getUserShelfIds(user_id) {
         return db.manyOrNone(`SELECT DISTINCT id FROM user_shelves WHERE user_id = true`, user_id)
         .then(shelves => {

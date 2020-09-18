@@ -7,7 +7,7 @@ class Shelves {
         this.shelf_name = shelf_name;
     }
 
-    static getByShelfId(id) {
+    static getShelfById(id) {
         return db.oneOrNone(`SELECT * FROM shelves WHERE id = $1`, id)
         .then((shelf) => {
             if(shelf) return new this(shelf);
