@@ -9,6 +9,8 @@ const passport = require('passport');
 
 //routers
 const shelfRouter = require('./routes/shelves_router');
+const userShelfRouter = require('./routes/user_shelves_router');
+const gBookRouter = require('./routes/google_book_router');
 
 //app intialize
 const app = express()
@@ -44,7 +46,11 @@ app.get('/', (req, res) => {
         message: 'Hello World'
     })
 })
-app.use('/api/v1', shelfRouter);
+
+//app.use
+app.use('/api/v1/shelf', shelfRouter);
+app.use('/api/v1/userShelf', userShelfRouter);
+app.use('/api/v1/books', gBookRouter);
 
 // if environment, is production send to react to handle routing
 app.use('*', (req, res) => {

@@ -25,11 +25,14 @@ const shelfReducer = (arr) => {
 
 //temporary array to represent saved books
 const savedSelections = ['p7uGzQEACAAJ', 'FylCUanlGhAC', 'ltClDwAAQBAJ', 'r6c8DAAAQBAJ', 'MWB3AgAAQBAJ', '5GbdTc9OJ78C']
-const searchBooks = () => {
-  fetch(`https://www.googleapis.com/books/v1/volumes?q=pride+and+prejudice&key=${key}`)  
+
+const searchBooks = (req, res, next) => {
+  const searchBody = req.body.search.replace(' ', '+')
+  fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchBody}&key=${key}`)  
   .then(res => res.json())
-  .then((res) => {
-      console.log(res)
+  .then((data) => {
+      res.locals.search = data;
+      next();
   })
 }
 
@@ -55,11 +58,12 @@ const getPublicBooks = (req, res, next) => {
   })
 }
 
-const getSingleBook = (book) => {
-  fetch(`https://www.googleapis.com/books/v1/volumes/${book}`)
+const getSingleBook = (req, res, next) => {
+  fetch(`https://www.googleapis.com/books/v1/volumes/${req.params.id}`)
   .then(data => data.json())
   .then(data => {
-    return data
+    res.locals.singleBook = data;
+    next();
   })
   .catch((err) => {
     console.log(err);
@@ -78,7 +82,8 @@ const getSavedBooks = () => {
     }))
   })
   .then((data) => {
-    console.log(data)
+    res.locals.shelfBooks = []
+    res.local.shelfBooks.push(data)
   })
 }
 

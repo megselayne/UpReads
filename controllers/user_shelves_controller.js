@@ -14,8 +14,9 @@ const userShelvesController = {
         })
     },
     destroy(req, res, next) {
-        UserShelves.getShelfById(req.params.id)
+        UserShelves.getUserShelfById(req.params.id)
         .then(shelf => {
+            console.log(`controller shelf`, shelf)
             return shelf.delete()
         })
         .then(() => {

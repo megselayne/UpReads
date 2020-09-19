@@ -1,7 +1,8 @@
 const db = require('../db/config');
 
 class Shelves {
-    constructor({ is_public, creator_user_id, shelf_name}){
+    constructor({ id, is_public, creator_user_id, shelf_name}){
+        this.id = id;
         this.is_public = is_public;
         this.creator_user_id = creator_user_id;
         this.shelf_name = shelf_name;
