@@ -1,7 +1,8 @@
 const db = require('../db/config');
 
 class UserBooks {
-    constructor({ user_id, status, google_book_id }) {
+    constructor({ id, user_id, status, google_book_id }) {
+        this.id = id;
         this.user_id = user_id;
         this.status = status;
         this.google_book_id = google_book_id;

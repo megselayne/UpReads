@@ -1,7 +1,8 @@
 const db = require('../db/config');
 
 class ShelfBooks {
-    constructor({ shelf_id, google_book_id }) {
+    constructor({ id, shelf_id, google_book_id }) {
+        this.id = id;
         this.shelf_id = shelf_id;
         this.google_book_id = google_book_id;
     }
