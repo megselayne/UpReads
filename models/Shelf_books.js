@@ -6,6 +6,13 @@ class ShelfBooks {
         this.shelf_id = shelf_id;
         this.google_book_id = google_book_id;
     }
+    static getBookByIdAndShelfId(id, shelf_id) {
+        return db.oneOrNone(`SELECT * FROM shelf_books WHERE google_book_id = $1 AND shelf_id = $2`, [id, shelf_id])
+        .then(book => {
+            if(book) return new this(book);
+            throw new Error('Shelf book not found!')
+        });
+    }
 
     save() {
         return db.one(
@@ -38,7 +45,7 @@ class ShelfBooks {
     }
 
     delete() {
-        return db.one(`DELETE FROM shelf_books WHERE id = $1`, this.id);
+        return db.oneOrNone(`DELETE FROM shelf_books WHERE google_book_id = $1 AND shelf_id = $2`, [this.google_book_id, this.shelf_id]);
     }
 }
 
