@@ -33,3 +33,8 @@
 ## Anticipated Challenges
 - I'm sure I'll run into unexpected differences between React and React Native. 
 - I've attempted to research core functionality (CRUD) upfront to limit major surprises/setbacks.
+
+
+## Implementation
+- `yarn add` or `npm install` for package dependencies.
+- You will need your own `SECRET_KEY` for your db and `GOOGLE_KEY` for the Google Books API used in this project. Your google key will need to be requested through Google directly.

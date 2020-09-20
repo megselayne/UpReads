@@ -1,13 +1,14 @@
 const db = require('../db/config');
 
 class Shelves {
-    constructor({ is_public, creator_user_id, shelf_name}){
+    constructor({ id, is_public, creator_user_id, shelf_name}){
+        this.id = id;
         this.is_public = is_public;
         this.creator_user_id = creator_user_id;
         this.shelf_name = shelf_name;
     }
 
-    static getByShelfId(id) {
+    static getShelfById(id) {
         return db.oneOrNone(`SELECT * FROM shelves WHERE id = $1`, id)
         .then((shelf) => {
             if(shelf) return new this(shelf);
@@ -29,6 +30,25 @@ class Shelves {
         .then(shelves => {
             return shelves.map(shelf => {
                return shelf.id 
+            })
+        })
+    }
+
+    static getPublicShelfBookIds(id) {
+        return db.manyOrNone(
+            `
+            SELECT
+                google_book_id
+            FROM shelves
+            LEFT JOIN
+                shelf_books on shelves.id = shelf_books.shelf_id
+            WHERE is_public = true
+            AND shelves.id = $1
+            `, id
+        )
+        .then(books => {
+            return books.map((book) => {
+                return book.google_book_id;
             })
         })
     }

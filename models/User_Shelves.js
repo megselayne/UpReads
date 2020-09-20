@@ -1,9 +1,19 @@
 const db = require('../db/config');
 
 class UserShelves {
-    constructor({ user_id, shelf_id }) {
+    constructor({ id, user_id, shelf_id }) {
+        this.id = id;
         this.user_id = user_id;
         this.shelf_id = shelf_id;
+    }
+
+    static getUserShelfById(id) {
+        return db.oneOrNone(`SELECT * FROM user_shelves WHERE id = $1`, id)
+        .then(shelf => {
+            console.log(shelf)
+            if(shelf) return new this(shelf);
+            throw new Error('User shelf not found!')
+        });
     }
 
     static getUserShelfIds(user_id) {
@@ -71,7 +81,7 @@ class UserShelves {
     }
 
     delete() {
-        return db.one(`DELETE FROM user_sheleves WHERE id = $1`, this.id);
+        return db.oneOrNone(`DELETE FROM user_shelves WHERE id = $1`, this.id);
     }
 }
 
