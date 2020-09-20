@@ -26,7 +26,7 @@ const userBooksController = {
         .catch(next)
     },
     show(req, res, next) {
-        UserBooks.getBookById(req.params.id)
+        UserBooks.getBookByGId(req.params.id, req.params.shelf_id, 1)
         .then(book => {
             res.json({
                 message: 'ok',

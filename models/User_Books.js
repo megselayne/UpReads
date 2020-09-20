@@ -17,8 +17,8 @@ class UserBooks {
         });
     }
 
-    static getBookByGId(id, shelf_id) {
-        return db.oneOrNone(`SELECT * FROM user_books WHERE google_book_id = $1 AND shelf_id = $2`, [id, shelf_id])
+    static getBookByGId(id, shelf_id, user_id) {
+        return db.oneOrNone(`SELECT * FROM user_books WHERE google_book_id = $1 AND shelf_id = $2 AND user_id = $3`, [id, shelf_id, user_id])
         .then(book => {
             if(book) return new this(book);
             else throw new Error('Book not found!');
