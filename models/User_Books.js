@@ -29,9 +29,9 @@ class UserBooks {
         return db.one(
             `
                 INSERT INTO user_books
-                (user_id, status, google_book_id)
+                (user_id, status, google_book_id, shelf_id)
                 VALUES
-                ($/user_id/, $/status/, $/google_book_id/)
+                ($/user_id/, $/status/, $/google_book_id/, $/shelf_id/)
                 RETURNING *
             `, this
         )
@@ -47,7 +47,9 @@ class UserBooks {
             UPDATE user_books SET
             user_id = $/user_id/,
             status = $/status/,
-            google_book_id = $/google_book_id/
+            google_book_id = $/google_book_id/,
+            shelf_id = $/shelf_id/
+            WHERE id = $/id/
             RETURNING *
         `, this
         )

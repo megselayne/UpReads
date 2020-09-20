@@ -4,7 +4,7 @@ const ShelfBooks = require('../models/Shelf_books');
 const userBooksController = {
     create(req, res, next) {
         new UserBooks({
-           user_id: req.user.id, 
+           user_id: req.body.user_id, 
            status: 'unread',
            google_book_id: req.params.id,
            shelf_id: req.params.shelf_id,
@@ -26,7 +26,7 @@ const userBooksController = {
         .catch(next)
     },
     show(req, res, next) {
-        UserBooks.getBookByGId(req.params.id, req.params.shelf_id, 1)
+        UserBooks.getBookByGId(req.params.id, req.params.shelf_id, req.user.id)
         .then(book => {
             res.json({
                 message: 'ok',
