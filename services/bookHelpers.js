@@ -40,24 +40,19 @@ const getPublicBooks = (req, res, next) => {
   Shelves.getPublicShelfBooks()
   .then(shelves => {
     const reduced = shelfReducer(shelves);
-    return reduced.map(shelf => {
-      const fetches = shelf.google_book_ids.map(book => {
-        return fetch(`https://www.googleapis.com/books/v1/volumes/${book}`)
-      })
-      Promise.all(fetches.map(el => {
-        return el.json()
-      }))
-      .then(data => {
-        console.log(data)
-      })
-
-    })
+    Promise.all(
+      reduced.map((shelf) =>
+        Promise.all(shelf.google_book_ids.map((id) => fetch(`https://www.googleapis.com/books/v1/volumes/${id}`))).then((res) =>
+          Promise.all(res.map((book) => book.json()))
+        )
+      )
+    ).then((results) => console.log(results));
   })
   .catch((err) => {
     console.log(err);
   })
 }
-
+getPublicBooks()
 const getSingleBook = (req, res, next) => {
   fetch(`https://www.googleapis.com/books/v1/volumes/${req.params.id}`)
   .then(data => data.json())
