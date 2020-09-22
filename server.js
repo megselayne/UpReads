@@ -57,11 +57,11 @@ app.use('/api/v1/books/user', userBookRouter);
 app.use('/api/v1/auth', authRouter);
 
 // if environment, is production send to react to handle routing
-app.use('*', (req, res) => {
-    process.env.NODE_ENV === 'production'
-      ? res.sendFile(path.join(__dirname, 'public/index.html'))
-      : res.status(404).json({ message: 'not found' });
-});
+// app.use('*', (req, res) => {
+//     process.env.NODE_ENV === 'production'
+//       ? res.sendFile(path.join(__dirname, 'public/index.html'))
+//       : res.status(404).json({ message: 'not found' });
+// });
 
 //error handling
 app.use((err, req, res, next) => {
