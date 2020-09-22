@@ -1,5 +1,6 @@
 require('dotenv').config();
 const Shelves = require('../models/Shelves');
+const UserShelves = require('../models/User_Shelves');
 const fetch = require('node-fetch');
 let key = process.env.GOOGLE_KEY;
 
@@ -23,8 +24,6 @@ const shelfReducer = (arr) => {
   }, [])
 }
 
-//temporary array to represent saved books
-const savedSelections = ['p7uGzQEACAAJ', 'FylCUanlGhAC', 'ltClDwAAQBAJ', 'r6c8DAAAQBAJ', 'MWB3AgAAQBAJ', '5GbdTc9OJ78C']
 
 const searchBooks = (req, res, next) => {
   const searchBody = req.body.search.replace(' ', '+')
@@ -46,13 +45,16 @@ const getPublicBooks = (req, res, next) => {
           Promise.all(res.map((book) => book.json()))
         )
       )
-    ).then((results) => console.log(results));
+    ).then((results) => {
+      res.locals.publicBooks = results;
+      next();
+    });
   })
   .catch((err) => {
     console.log(err);
   })
 }
-getPublicBooks()
+
 const getSingleBook = (req, res, next) => {
   fetch(`https://www.googleapis.com/books/v1/volumes/${req.params.id}`)
   .then(data => data.json())
@@ -66,26 +68,31 @@ const getSingleBook = (req, res, next) => {
 }
 
 
-const getSavedBooks = () => {
-  const fetches = savedSelections.map((book) => {
-    return fetch(`https://www.googleapis.com/books/v1/volumes/${book}`)
+const getUserBooks = (req, res, next) => {
+  UserShelves.getUserShelfBooks(req.user.id)
+  .then(shelves => {
+    const reduced = shelfReducer(shelves);
+    Promise.all(
+      reduced.map((shelf) =>
+        Promise.all(shelf.google_book_ids.map((id) => fetch(`https://www.googleapis.com/books/v1/volumes/${id}`))).then((res) =>
+          Promise.all(res.map((book) => book.json()))
+        )
+      )
+    ).then((results) => {
+      res.locals.userBooks = results;
+      next();
+    });
   })
-  return Promise.all(fetches)
-  .then((res) => {
-    return Promise.all(res.map((el) => {
-      return el.json()
-    }))
-  })
-  .then((data) => {
-    res.locals.shelfBooks = []
-    res.local.shelfBooks.push(data)
+  .catch((err) => {
+    console.log(err);
   })
 }
 
 
 module.exports = {
   searchBooks,
-  getSavedBooks,
+  getUserBooks,
   getSingleBook,
   getPublicBooks
 }
+
