@@ -1,0 +1,32 @@
+.container{
+    display: flex;
+    flex-direction: column;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.nav-container{
+    display: flex;
+    justify-content: flex-end;
+    width: 90vw;
+}
+
+.navlinks{
+    display: flex;
+
+}
+
+nav ul{
+    list-style: none;
+}
+
+nav li{
+    margin: 5px;
+}
+
+.shelf-books{
+    display: flex;
+}
