@@ -1,32 +1,24 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 
 
-    const templates = {
-        template1: {
-          items: [1, 2]
-        },
-        template2: {
-          items: [2, 3, 4]
-        },
-      };
-      
       const Home = (props) => (
         <div>
           {
             props.books.map(shelf => {
               return (
                 <div>
-                  <h2>Shelf Name</h2>
+                  <span><Link to={`/shelf/${shelf.id}`}>{shelf.shelf_name}</Link></span>
                   <div className='shelf-books'>
                   {
-                    shelf.map(book => {
+                    shelf.google_books.map(book => {
                       return(
-                        <>
-                      {book.volumeInfo.imageLinks && <img src={book.volumeInfo.imageLinks.smallThumbnail}/> }
-                      <h5>{book.volumeInfo.title}</h5>
-                      <h6>{book.volumeInfo.authors[0]}</h6>
-                      </>
+                      <div className='vertical-books'>
+                      {book.cover_img && <Link to={`/books/${book.googleBookId}`}><img className='book-img' src={book.cover_img}/></Link> }
+                      <h5>{book.title}</h5>
+                      <h6>{book.author}</h6>
+                      </div>
                       )
                     })
                   }

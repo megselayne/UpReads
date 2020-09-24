@@ -5,6 +5,8 @@ import './App.css';
 import StateController from './components/StateController';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
+import Login from './components/Login';
+import Register from './components/Register';
 
 class App extends Component {
   constructor() {
@@ -17,7 +19,7 @@ class App extends Component {
   }
   
   componentDidMount = () => {
-    fetch('/api/auth/login', { credentials: 'include' })
+    fetch('/api/v1/auth/login', { credentials: 'include' })
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -71,27 +73,28 @@ class App extends Component {
   render() {
     return (
       <div className='container'>
-        <Nav />
+        <Nav auth={this.state.auth} logout={this.logout}/>
         <div className='main'>
           <Route exact path='/' render={() => (<StateController currentPage='home' />)} />
           <Route exact path='/search' render={() => (<StateController currentPage='search' />)} />
-          {/* <Route exact pact ='/user/profile' render={() => (
+          <Route exact path='/shelf/:id' render={props => (<StateController currentPage='shelf' currentId={props.match.params.id} userState={this.state} />)} />
+          <Route exact path='/books/:id' render={props => (<StateController currentPage='show' currentId={props.match.params.id} userState={this.state} />)} />
+          <Route exact path='/user/profile' render={() => (
             this.state.auth
-            ? <StateController currentPage='search' />
-            : <Redirect to='/login' />
+            ? <StateController currentPage='profile' />
+            : <Redirect to='/auth/login' />
             )} />
-          <Route exact path='/login' render={() => (
-            this.state.auth
-                ? <Redirect to='/user/profile' />
-                : <Login handleFormSubmit={this.handleFormSubmit} userState={this.state} currentPage='login'/>
-            )}/>
+          <Route exact path='/auth/login' render={() => (
+          this.state.auth
+              ? <Redirect to='/user/profile' />
+              : <Login handleFormSubmit={this.handleFormSubmit} userState={this.state} currentPage='login'/>
+        )}/>
         <Route exact path='/user/new' render={() => (
           this.state.auth
               ? <Redirect to='/user/profile'/>
-          : <Register handleFormSubmit={this.handleFormSubmit} userState={this.state} currentPage='register'/>
-          )} /> */}
-        <Route exact path='/logout' render={() => (<StateController currentPage='home' />)} />
-
+          : <Register handleFormSubmit={this.handleFormSubmit} userState={this.state} currentPage='new'/>
+          )} />
+        <Route exact path='/auth/logout' render={() => (<StateController currentPage='home' />)} />
         </div>
         <Footer />
         

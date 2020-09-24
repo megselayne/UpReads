@@ -1,11 +1,11 @@
 const db = require('../db/config');
 
 class Shelves {
-    constructor({ id, is_public, creator_user_id, shelf_name}){
-        this.id = id;
-        this.is_public = is_public;
-        this.creator_user_id = creator_user_id;
-        this.shelf_name = shelf_name;
+    constructor(shelf){
+        this.id = shelf.id || null;
+        this.is_public = shelf.is_public;
+        this.creator_user_id = shelf.creator_user_id;
+        this.shelf_name = shelf.shelf_name;
     }
 
     static getShelfById(id) {
@@ -59,12 +59,36 @@ class Shelves {
             SELECT
                 shelf_name,
                 shelves.id,
-                google_book_id
+                google_book_id,
+                title,
+                author,
+                cover_img
             FROM shelves
             LEFT JOIN
                 shelf_books on shelves.id = shelf_books.shelf_id
             WHERE is_public = true
             `
+        )
+        .then(books => {
+            return books
+        })
+    }
+
+    static getPublicShelfBooksById(id) {
+        return db.manyOrNone(
+            `
+            SELECT
+                shelf_name,
+                shelves.id,
+                google_book_id,
+                title,
+                author,
+                cover_img
+            FROM shelves
+            LEFT JOIN
+                shelf_books on shelves.id = shelf_books.shelf_id
+            WHERE is_public = true and shelves.id = $1
+            `, id
         )
         .then(books => {
             return books

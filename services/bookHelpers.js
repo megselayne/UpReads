@@ -12,13 +12,28 @@ const shelfReducer = (arr) => {
       accum.push(
         {
           shelf_name: current.shelf_name,
-          id: current.id,
-          google_book_ids: [current.google_book_id]
+          id: current.id || null,
+          shelf_id: current.shelf_id || null,
+          google_books: [
+            {
+              googleBookId: current.google_book_id,
+              title: current.title,
+              author: current.author,
+              cover_img: current.cover_img
+
+            }
+        ]
         }
       )
     }
     else {
-      found.google_book_ids.push(current.google_book_id)
+      found.google_books.push({
+        googleBookId: current.google_book_id,
+        title: current.title,
+        author: current.author,
+        cover_img: current.cover_img
+
+      })
     }
     return accum
   }, [])
@@ -39,21 +54,38 @@ const getPublicBooks = (req, res, next) => {
   Shelves.getPublicShelfBooks()
   .then(shelves => {
     const reduced = shelfReducer(shelves);
-    Promise.all(
-      reduced.map((shelf) =>
-        Promise.all(shelf.google_book_ids.map((id) => fetch(`https://www.googleapis.com/books/v1/volumes/${id}`))).then((res) =>
-          Promise.all(res.map((book) => book.json()))
-        )
-      )
-    ).then((results) => {
-      res.locals.publicBooks = results;
-      next();
-    });
+    res.locals.publicBooks = reduced;
+    next();
   })
   .catch((err) => {
     console.log(err);
   })
 }
+
+const getPublicShelf = (req, res, next) => {
+  Shelves.getPublicShelfBooksById(req.params.id)
+  .then(shelves => {
+    const reduced = shelfReducer(shelves);
+    res.locals.publicShelf = reduced;
+    next();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
+const getUserShelf = (req, res, next) => {
+  UserShelves.getUserShelfBooksById(req.user.id,req.params.id)
+  .then(shelves => {
+    const reduced = shelfReducer(shelves);
+    res.locals.userShelf = reduced;
+    next();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
 
 const getSingleBook = (req, res, next) => {
   fetch(`https://www.googleapis.com/books/v1/volumes/${req.params.id}`)
@@ -72,16 +104,8 @@ const getUserBooks = (req, res, next) => {
   UserShelves.getUserShelfBooks(req.user.id)
   .then(shelves => {
     const reduced = shelfReducer(shelves);
-    Promise.all(
-      reduced.map((shelf) =>
-        Promise.all(shelf.google_book_ids.map((id) => fetch(`https://www.googleapis.com/books/v1/volumes/${id}`))).then((res) =>
-          Promise.all(res.map((book) => book.json()))
-        )
-      )
-    ).then((results) => {
-      res.locals.userBooks = results;
-      next();
-    });
+    res.locals.userBooks = reduced;
+    next();
   })
   .catch((err) => {
     console.log(err);
@@ -93,6 +117,8 @@ module.exports = {
   searchBooks,
   getUserBooks,
   getSingleBook,
-  getPublicBooks
+  getPublicBooks,
+  getPublicShelf,
+  getUserShelf,
 }
 
