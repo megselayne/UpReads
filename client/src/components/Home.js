@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 
 
@@ -26,6 +27,7 @@ import React, {Component} from 'react'
                       {book.volumeInfo.imageLinks && <img src={book.volumeInfo.imageLinks.smallThumbnail}/> }
                       <h5>{book.volumeInfo.title}</h5>
                       <h6>{book.volumeInfo.authors[0]}</h6>
+                      <Link to={`/books/${book.id}`}><h6>More</h6></Link>
                       </>
                       )
                     })

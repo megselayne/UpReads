@@ -12,18 +12,23 @@ class StateController extends Component {
             currentPage: props.currentPage,
             publicShelfBooks: null,
             searchResults: null,
+            currentId: props.currentId,
         })
     }
     componentDidMount() {
         if(this.state.currentPage === 'home'){
             this.getPublicBooks()
         }
-        else{
+        else if(this.state.currentPage === 'show'){
+            this.getSingleBook()
+        }
+        else if(this.state.currentPage === 'search'){
             this.setState({
                 isLoaded: true,
             })
         }
     }
+    
 
     getPublicBooks = () => {
         fetch(`/api/v1/books/home`)
@@ -60,7 +65,18 @@ class StateController extends Component {
         })
     }
 
-    decideWhichToRender() {
+    getSingleBook = () => {
+        fetch(`/api/v1/books/single/${this.state.currentId}`)
+        .then(res => res.json())
+        .then(res => {
+            this.setState({
+                singleBook: res,
+                isLoaded: true,
+            })
+        })
+    }
+
+    decideWhichToRender =() => {
         switch(this.state.currentPage) {
             case 'home':
                 return <Home books={this.state.publicShelfBooks}/>
@@ -69,7 +85,7 @@ class StateController extends Component {
             case 'profile':
                 return <Profile />
             case 'show':
-                return <SingleBook />
+                return <SingleBook book={this.state.singleBook}/>
         }
     }
     render(){
