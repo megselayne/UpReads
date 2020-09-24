@@ -5,6 +5,7 @@ import Search from './Search';
 import SingleBook from './SingleBook';
 import Shelf from './Shelf';
 import fetch from 'node-fetch';
+import { Redirect } from 'react-router-dom';
 
 class StateController extends Component {
     constructor(props){
@@ -112,7 +113,26 @@ class StateController extends Component {
 
     saveShelf = (id) => {
         fetch(`/api/v1/userShelf/${id}`, {
-            method: 'POST',
+            method: 'POST'
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+            this.setState({
+                fireRedirect: true,
+                redirectPath: '/user/profile'
+            })
+            this.getUserShelves()
+            
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+    deleteShelf = (id) => {
+        fetch(`/api/v1/userShelf/${id}`, {
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -122,13 +142,15 @@ class StateController extends Component {
             console.log(res)
             this.setState({
                 fireRedirect: true,
-                redirectPath: `/user/profile`
+                redirectPath: '/user/profile'
             })
+            this.getUserShelves()
+
             
         })
         .catch(err => {
             console.log(err)
-        })
+        }) 
     }
 
     decideWhichToRender =() => {
@@ -138,7 +160,7 @@ class StateController extends Component {
             case 'search':
                 return <Search searchFunc={this.searchBooks} searchResults={this.state.searchResults}/>
             case 'profile':
-                return <Profile userShelves={this.state.userShelves}/>
+                return <Profile userShelves={this.state.userShelves} deleteShelf={this.deleteShelf}/>
             case 'show':
                 return <SingleBook book={this.state.singleBook}/>
             case 'shelf':

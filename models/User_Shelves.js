@@ -17,7 +17,7 @@ class UserShelves {
     }
 
     static getUserShelfIds(user_id) {
-        return db.manyOrNone(`SELECT DISTINCT id FROM user_shelves WHERE user_id = true`, user_id)
+        return db.manyOrNone(`SELECT DISTINCT id FROM user_shelves WHERE user_id = $1`, user_id)
         .then(shelves => {
             return shelves.map(shelf => {
                return shelf.id 
@@ -50,6 +50,15 @@ class UserShelves {
         .then(books => {
             return books
         })
+    }
+
+    static getShelfByUserShelfIds(user_id, shelf_id){
+        return db.oneOrNone(`SELECT * FROM user_shelves WHERE user_id = $1 AND shelf_id = $2`, [user_id, shelf_id])
+        .then(shelf => {
+            console.log(shelf)
+            if(shelf) return new this(shelf);
+            throw new Error('User shelf not found!')
+        });
     }
 
     static getUserShelfBooksById(user_id, id) {
@@ -112,7 +121,7 @@ class UserShelves {
     }
 
     delete() {
-        return db.oneOrNone(`DELETE FROM user_shelves WHERE id = $1`, this.id);
+        return db.oneOrNone(`DELETE FROM user_shelves WHERE shelf_id = $1 AND user_id =$2`, [this.shelf_id, this.user_id]);
     }
 }
 
