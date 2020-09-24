@@ -52,6 +52,34 @@ class UserShelves {
         })
     }
 
+    static getUserShelfBooksById(user_id, id) {
+        return db.manyOrNone(
+            `
+            SELECT
+                shelf_name,
+                user_shelves.shelf_id,
+                google_book_id,
+                title,
+                author,
+                cover_img
+            FROM
+                (
+                    SELECT
+                        shelf_name,
+                        us.shelf_id
+                    FROM user_shelves us
+                    LEFT JOIN shelves on us.shelf_id = shelves.id
+                    WHERE us.user_id = $1
+                    AND us.shelf_id = $2
+                ) user_shelves
+            LEFT JOIN shelf_books on user_shelves.shelf_id = shelf_books.shelf_id
+            `, [user_id, id]
+        )
+        .then(books => {
+            return books
+        })
+    }
+
     save() {
         return db.one(
             `   

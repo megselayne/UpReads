@@ -62,6 +62,30 @@ const getPublicBooks = (req, res, next) => {
   })
 }
 
+const getPublicShelf = (req, res, next) => {
+  Shelves.getPublicShelfBooksById(req.params.id)
+  .then(shelves => {
+    const reduced = shelfReducer(shelves);
+    res.locals.publicShelf = reduced;
+    next();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
+const getUserShelf = (req, res, next) => {
+  UserShelves.getUserShelfBooksById(req.user.id,req.params.id)
+  .then(shelves => {
+    const reduced = shelfReducer(shelves);
+    res.locals.userShelf = reduced;
+    next();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
+
 
 const getSingleBook = (req, res, next) => {
   fetch(`https://www.googleapis.com/books/v1/volumes/${req.params.id}`)
@@ -93,6 +117,8 @@ module.exports = {
   searchBooks,
   getUserBooks,
   getSingleBook,
-  getPublicBooks
+  getPublicBooks,
+  getPublicShelf,
+  getUserShelf,
 }
 

@@ -73,6 +73,27 @@ class Shelves {
             return books
         })
     }
+
+    static getPublicShelfBooksById(id) {
+        return db.manyOrNone(
+            `
+            SELECT
+                shelf_name,
+                shelves.id,
+                google_book_id,
+                title,
+                author,
+                cover_img
+            FROM shelves
+            LEFT JOIN
+                shelf_books on shelves.id = shelf_books.shelf_id
+            WHERE is_public = true and shelves.id = $1
+            `, id
+        )
+        .then(books => {
+            return books
+        })
+    }
     
     save() {
         return db.one(

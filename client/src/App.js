@@ -77,6 +77,7 @@ class App extends Component {
         <div className='main'>
           <Route exact path='/' render={() => (<StateController currentPage='home' />)} />
           <Route exact path='/search' render={() => (<StateController currentPage='search' />)} />
+          <Route exact path='/shelf/:id' render={props => (<StateController currentPage='shelf' currentId={props.match.params.id} userState={this.state} />)} />
           <Route exact path='/books/:id' render={props => (<StateController currentPage='show' currentId={props.match.params.id} userState={this.state} />)} />
           <Route exact path='/user/profile' render={() => (
             this.state.auth
