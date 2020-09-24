@@ -16,6 +16,9 @@ class StateController extends Component {
             searchResults: null,
             currentId: props.currentId,
             shelf: null,
+            userShelves: null,
+            fireRedirect: false,
+            redirectPath: null,
         })
     }
     componentDidMount() {
@@ -32,6 +35,9 @@ class StateController extends Component {
         }
         else if(this.state.currentPage === 'shelf'){
             this.getShelves()
+        }
+        else if(this.state.currentPage === 'profile'){
+            this.getUserShelves()
         }
     }
     
@@ -92,6 +98,38 @@ class StateController extends Component {
             })
         })
     }
+    
+    getUserShelves = () => {
+        fetch(`/api/v1/userShelf/all`)
+        .then(res => res.json())
+        .then(res => {
+            this.setState({
+                userShelves: res,
+                isLoaded: true
+            })
+        })
+    }
+
+    saveShelf = (id) => {
+        fetch(`/api/v1/shelf/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+            this.setState({
+                fireRedirect: true,
+                redirectPath: `/user/profile`
+            })
+            
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
 
     decideWhichToRender =() => {
         switch(this.state.currentPage) {
@@ -100,11 +138,11 @@ class StateController extends Component {
             case 'search':
                 return <Search searchFunc={this.searchBooks} searchResults={this.state.searchResults}/>
             case 'profile':
-                return <Profile />
+                return <Profile userShelves={this.state.userShelves}/>
             case 'show':
                 return <SingleBook book={this.state.singleBook}/>
             case 'shelf':
-                return <Shelf shelf={this.state.shelf}/>
+                return <Shelf shelf={this.state.shelf} saveShelf={this.saveShelf} />
         }
     }
     render(){

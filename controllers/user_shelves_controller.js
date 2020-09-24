@@ -7,7 +7,7 @@ const userShelvesController = {
         Shelves.getShelfById(req.params.id)
         .then(shelf => {
             new UserShelves({
-                user_id: 1,
+                user_id: req.user.id,
                 shelf_id: shelf.id
             })
             .save()
@@ -17,7 +17,7 @@ const userShelvesController = {
                     console.log(books)
                     books.map(book => {
                         new UserBooks({
-                            user_id: 1,
+                            user_id: req.user.id,
                             status: 'unread',
                             google_book_id: book,
                         })

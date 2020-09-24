@@ -29,6 +29,7 @@ nav li{
 
 .shelf-books{
     display: flex;
+    align-items: center;
 }
 
 .vertical-books{
@@ -39,4 +40,8 @@ nav li{
 .book-img{
     height: 7em;
     width: 5em;
+}
+.add-logo{
+    height: 2em;
+    width: 2em;
 }
