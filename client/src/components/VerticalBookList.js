@@ -27,10 +27,7 @@ class VerticalBookList extends Component {
                 this.props.searchResults.items.map(book => {
                     return(
                     <div key={book.id}>
-                    {book.volumeInfo.imageLinks && <img className='book-img' 
-                    src={book.volumeInfo.imageLinks.smallThumbnail}
-                    /> }
-                    <Link to={`/books/${book.id}`}><h6>More</h6></Link>
+                    {book.volumeInfo.imageLinks && <Link to={`/books/${book.id}`}><img className='book-img' src={book.volumeInfo.imageLinks.smallThumbnail}/></Link> }
                     <h5>{book.volumeInfo.title}</h5>
                     <h6>{book.volumeInfo.authors[0]}</h6>
                     </div>

@@ -12,7 +12,8 @@ const shelfReducer = (arr) => {
       accum.push(
         {
           shelf_name: current.shelf_name,
-          id: current.id,
+          id: current.id || null,
+          shelf_id: current.shelf_id || null,
           google_books: [
             {
               googleBookId: current.google_book_id,

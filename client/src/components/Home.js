@@ -9,16 +9,15 @@ import {Link} from 'react-router-dom';
             props.books.map(shelf => {
               return (
                 <div>
-                  <h2>Shelf Name</h2>
+                  <span><Link to={`/shelf/${shelf.id}`}>{shelf.shelf_name}</Link></span>
                   <div className='shelf-books'>
                   {
-                    shelf.map(book => {
+                    shelf.google_books.map(book => {
                       return(
-                        <div className='vertical-books'>
-                      {book.volumeInfo.imageLinks && <img className='book-img' src={book.volumeInfo.imageLinks.smallThumbnail}/> }
-                      <h5>{book.volumeInfo.title}</h5>
-                      <h6>{book.volumeInfo.authors[0]}</h6>
-                      <Link to={`/books/${book.id}`}><h6>More</h6></Link>
+                      <div className='vertical-books'>
+                      {book.cover_img && <Link to={`/books/${book.googleBookId}`}><img className='book-img' src={book.cover_img}/></Link> }
+                      <h5>{book.title}</h5>
+                      <h6>{book.author}</h6>
                       </div>
                       )
                     })
