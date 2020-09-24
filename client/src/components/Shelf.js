@@ -12,7 +12,7 @@ const Shelf = (props) =>(
                 <h3>{shelf.shelf_name}</h3>
                 <img className='add-logo' 
                 src='https://www.flaticon.com/premium-icon/icons/svg/3114/3114793.svg'
-                onClick={() => this.props.saveShelf(shelf.id)}
+                onClick={() => props.saveShelf(shelf.id)}
                 />
                 </div>
                 <div className='vertical-books'>

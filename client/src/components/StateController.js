@@ -111,7 +111,7 @@ class StateController extends Component {
     }
 
     saveShelf = (id) => {
-        fetch(`/api/v1/shelf/${id}`, {
+        fetch(`/api/v1/userShelf/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

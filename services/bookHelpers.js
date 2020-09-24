@@ -38,6 +38,41 @@ const shelfReducer = (arr) => {
     return accum
   }, [])
 }
+//user shelf reducer
+const userShelfReducer = (arr) => {
+  return arr.reduce((accum, current) => {
+    const found = accum.find(el => el.shelf_id === current.shelf_id);
+    if(!found){
+      accum.push(
+        {
+          shelf_name: current.shelf_name,
+          id: current.id || null,
+          shelf_id: current.shelf_id || null,
+          google_books: [
+            {
+              googleBookId: current.google_book_id,
+              title: current.title,
+              author: current.author,
+              cover_img: current.cover_img
+
+            }
+        ]
+        }
+      )
+    }
+    else {
+      found.google_books.push({
+        googleBookId: current.google_book_id,
+        title: current.title,
+        author: current.author,
+        cover_img: current.cover_img
+
+      })
+    }
+    return accum
+  }, [])
+}
+
 
 
 const searchBooks = (req, res, next) => {
@@ -103,7 +138,7 @@ const getSingleBook = (req, res, next) => {
 const getUserBooks = (req, res, next) => {
   UserShelves.getUserShelfBooks(req.user.id)
   .then(shelves => {
-    const reduced = shelfReducer(shelves);
+    const reduced = userShelfReducer(shelves, 'user_id');
     res.locals.userBooks = reduced;
     next();
   })
