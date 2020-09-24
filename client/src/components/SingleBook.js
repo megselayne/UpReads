@@ -5,7 +5,7 @@ class SingleBook extends Component {
         return(
             <>
             <h1>Hello Single Book </h1>
-            {this.props.book.volumeInfo.imageLinks && <img className='book-img' 
+            {this.props.book.volumeInfo.imageLinks.smallThumbnail && <img className='book-img' 
                     src={this.props.book.volumeInfo.imageLinks.smallThumbnail}
             /> }
             <h5>{this.props.book.volumeInfo.title}</h5>    
