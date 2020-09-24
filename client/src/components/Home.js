@@ -3,15 +3,6 @@ import {Link} from 'react-router-dom';
 
 
 
-    const templates = {
-        template1: {
-          items: [1, 2]
-        },
-        template2: {
-          items: [2, 3, 4]
-        },
-      };
-      
       const Home = (props) => (
         <div>
           {
@@ -23,12 +14,12 @@ import {Link} from 'react-router-dom';
                   {
                     shelf.map(book => {
                       return(
-                        <>
-                      {book.volumeInfo.imageLinks && <img src={book.volumeInfo.imageLinks.smallThumbnail}/> }
+                        <div className='vertical-books'>
+                      {book.volumeInfo.imageLinks && <img className='book-img' src={book.volumeInfo.imageLinks.smallThumbnail}/> }
                       <h5>{book.volumeInfo.title}</h5>
                       <h6>{book.volumeInfo.authors[0]}</h6>
                       <Link to={`/books/${book.id}`}><h6>More</h6></Link>
-                      </>
+                      </div>
                       )
                     })
                   }

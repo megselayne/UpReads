@@ -1,12 +1,15 @@
 const db = require('../db/config');
 
 class UserBooks {
-    constructor({ id, user_id, status, google_book_id, shelf_id }) {
-        this.id = id;
-        this.user_id = user_id;
-        this.status = status;
-        this.google_book_id = google_book_id;
-        this.shelf_id = shelf_id;
+    constructor(userBook) {
+        this.id = userBook.id || null;
+        this.user_id = userBook.user_id;
+        this.status = userBook.status;
+        this.google_book_id = userBook.google_book_id;
+        this.shelf_id = userBook.shelf_id;
+        this.title = userBook.title;
+        this.author = userBook.author;
+        this.cover_img = userBook.cover_img || null;
     }
 
     static getBookById(id) {
@@ -29,9 +32,9 @@ class UserBooks {
         return db.one(
             `
                 INSERT INTO user_books
-                (user_id, status, google_book_id, shelf_id)
+                (user_id, status, google_book_id, shelf_id, title, author, cover_img)
                 VALUES
-                ($/user_id/, $/status/, $/google_book_id/, $/shelf_id/)
+                ($/user_id/, $/status/, $/google_book_id/, $/shelf_id/, $/title/, $/author/, $/cover_img/)
                 RETURNING *
             `, this
         )
@@ -45,10 +48,13 @@ class UserBooks {
         return db.one(
         `
             UPDATE user_books SET
-            user_id = $/user_id/,
-            status = $/status/,
-            google_book_id = $/google_book_id/,
-            shelf_id = $/shelf_id/
+                user_id = $/user_id/,
+                status = $/status/,
+                google_book_id = $/google_book_id/,
+                shelf_id = $/shelf_id/,
+                title = $/title/,
+                author = $/author/,
+                cover_img =  $/cover_img/
             WHERE id = $/id/
             RETURNING *
         `, this

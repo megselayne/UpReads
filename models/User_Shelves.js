@@ -31,7 +31,10 @@ class UserShelves {
             SELECT
                 shelf_name,
                 user_shelves.shelf_id,
-                google_book_id
+                google_book_id,
+                title,
+                author,
+                cover_img
             FROM
                 (
                     SELECT

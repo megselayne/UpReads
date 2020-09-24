@@ -13,12 +13,26 @@ const shelfReducer = (arr) => {
         {
           shelf_name: current.shelf_name,
           id: current.id,
-          google_book_ids: [current.google_book_id]
+          google_books: [
+            {
+              googleBookId: current.google_book_id,
+              title: current.title,
+              author: current.author,
+              cover_img: current.cover_img
+
+            }
+        ]
         }
       )
     }
     else {
-      found.google_book_ids.push(current.google_book_id)
+      found.google_books.push({
+        googleBookId: current.google_book_id,
+        title: current.title,
+        author: current.author,
+        cover_img: current.cover_img
+
+      })
     }
     return accum
   }, [])
@@ -39,21 +53,14 @@ const getPublicBooks = (req, res, next) => {
   Shelves.getPublicShelfBooks()
   .then(shelves => {
     const reduced = shelfReducer(shelves);
-    Promise.all(
-      reduced.map((shelf) =>
-        Promise.all(shelf.google_book_ids.map((id) => fetch(`https://www.googleapis.com/books/v1/volumes/${id}`))).then((res) =>
-          Promise.all(res.map((book) => book.json()))
-        )
-      )
-    ).then((results) => {
-      res.locals.publicBooks = results;
-      next();
-    });
+    res.locals.publicBooks = reduced;
+    next();
   })
   .catch((err) => {
     console.log(err);
   })
 }
+
 
 const getSingleBook = (req, res, next) => {
   fetch(`https://www.googleapis.com/books/v1/volumes/${req.params.id}`)
@@ -72,16 +79,8 @@ const getUserBooks = (req, res, next) => {
   UserShelves.getUserShelfBooks(req.user.id)
   .then(shelves => {
     const reduced = shelfReducer(shelves);
-    Promise.all(
-      reduced.map((shelf) =>
-        Promise.all(shelf.google_book_ids.map((id) => fetch(`https://www.googleapis.com/books/v1/volumes/${id}`))).then((res) =>
-          Promise.all(res.map((book) => book.json()))
-        )
-      )
-    ).then((results) => {
-      res.locals.userBooks = results;
-      next();
-    });
+    res.locals.userBooks = reduced;
+    next();
   })
   .catch((err) => {
     console.log(err);
