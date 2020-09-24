@@ -56,11 +56,9 @@ app.use('/api/v1/books', gBookRouter);
 app.use('/api/v1/books/user', userBookRouter);
 app.use('/api/v1/auth', authRouter);
 
-// if environment, is production send to react to handle routing
-app.use('*', (req, res) => {
-    process.env.NODE_ENV === 'production'
-      ? res.sendFile(path.join(__dirname, 'public/index.html'))
-      : res.status(404).json({ message: 'not found' });
+//Send to React App
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/public/index.html'))
 });
 
 //error handling
