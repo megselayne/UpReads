@@ -3,6 +3,8 @@ import Home from './Home';
 import Profile from './Profile';
 import Search from './Search';
 import SingleBook from './SingleBook';
+import Shelf from './Shelf';
+import fetch from 'node-fetch';
 
 class StateController extends Component {
     constructor(props){
@@ -13,6 +15,7 @@ class StateController extends Component {
             publicShelfBooks: null,
             searchResults: null,
             currentId: props.currentId,
+            shelf: null,
         })
     }
     componentDidMount() {
@@ -26,6 +29,9 @@ class StateController extends Component {
             this.setState({
                 isLoaded: true,
             })
+        }
+        else if(this.state.currentPage === 'shelf'){
+            this.getShelves()
         }
     }
     
@@ -76,6 +82,17 @@ class StateController extends Component {
         })
     }
 
+    getShelves = () => {
+        fetch(`/api/v1/shelf/${this.state.currentId}`)
+        .then(res => res.json())
+        .then(res => {
+            this.setState({
+                shelf: res,
+                isLoaded: true,
+            })
+        })
+    }
+
     decideWhichToRender =() => {
         switch(this.state.currentPage) {
             case 'home':
@@ -86,6 +103,8 @@ class StateController extends Component {
                 return <Profile />
             case 'show':
                 return <SingleBook book={this.state.singleBook}/>
+            case 'shelf':
+                return <Shelf shelf={this.state.shelf}/>
         }
     }
     render(){
