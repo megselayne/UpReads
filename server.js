@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
+const path = require('path');
 
 //routers
 const shelfRouter = require('./routes/shelves_router');
@@ -57,9 +58,12 @@ app.use('/api/v1/books/user', userBookRouter);
 app.use('/api/v1/auth', authRouter);
 
 //Send to React App
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/public/index.html'))
-});
+app.use('*', (req, res) => {
+    console.log(`------------reached this point----------------`)
+    process.env.NODE_ENV === 'production'
+      ? res.sendFile(path.join(__dirname, 'public/index.html'))
+      : res.status(404).json({ message: 'not found' });
+  });
 
 //error handling
 app.use((err, req, res, next) => {
