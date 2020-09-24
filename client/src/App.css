@@ -30,3 +30,13 @@ nav li{
 .shelf-books{
     display: flex;
 }
+
+.vertical-books{
+    display: flex;
+    flex-direction: column;
+}
+
+.book-img{
+    height: 7em;
+    width: 5em;
+}

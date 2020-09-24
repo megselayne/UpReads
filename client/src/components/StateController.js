@@ -36,7 +36,8 @@ class StateController extends Component {
         })
     }
 
-    searchBooks = (query) => {
+    searchBooks = (e, query) => {
+        e.preventDefault()
         fetch(`/api/v1/books/search`, {
             method: 'POST',
             headers: {
@@ -48,9 +49,14 @@ class StateController extends Component {
         })
         .then(res => res.json())
         .then(res => {
+            console.log(res)
             this.setState({
                 searchResults: res
             })
+            
+        })
+        .catch(err => {
+            console.log(err)
         })
     }
 

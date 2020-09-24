@@ -1,10 +1,11 @@
-import React, {Component, useState} from 'react'
+import React, {Component} from 'react'
+import VerticalBookList from './VerticalBookList';
 
 class Search extends Component {
     constructor(){
         super()
         this.state={
-            query: ''
+            query: '',
         }
     }
     handleFormChange = (e) => {
@@ -13,18 +14,18 @@ class Search extends Component {
             [name]: value,
         })
     }
-    handleSubmit = (e) => {
-        
-    }
 
     render() {
         return(
-            <form onSubmit={this.handleSubmit}>
+            <>
+            <form onSubmit={(e)=> this.props.searchFunc(e,this.state.query)}>
                 <input type='text' name='query' value={this.state.name}
                 onChange={this.handleFormChange} placeholder='Search' />
                 <input type='submit' value='Search' />
             </form>
-            
+            {this.props.searchResults && <VerticalBookList searchResults={this.props.searchResults} />}
+            </>
+
         )
     }
 }
