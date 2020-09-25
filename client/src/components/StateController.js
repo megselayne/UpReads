@@ -188,6 +188,35 @@ class StateController extends Component {
         }) 
     }
 
+    saveBook = (e, shelf_id, book) => {
+        e.preventDefault()
+        fetch(`/api/v1/books/user/${shelf_id}/${book.id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                title: book.volumeInfo.title,
+                author: book.volumeInfo.authors[0],
+                cover_img: book.volumeInfo.imageLinks.smallThumbnail || null,
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+            this.setState({
+                fireRedirect: true,
+                redirectPath: '/user/profile'
+            })
+            this.getUserShelves()
+
+            
+        })
+        .catch(err => {
+            console.log(err)
+        }) 
+    }
+
     decideWhichToRender =() => {
         switch(this.state.currentPage) {
             case 'home':
@@ -197,7 +226,7 @@ class StateController extends Component {
             case 'profile':
                 return <Profile userShelves={this.state.userShelves} deleteShelf={this.deleteShelf} getUserShelves={this.getUserShelves}/>
             case 'show':
-                return <SingleBook book={this.state.singleBook} userShelves={this.state.userShelves} />
+                return <SingleBook book={this.state.singleBook} userShelves={this.state.userShelves} saveBook={this.saveBook} />
             case 'shelf':
                 return <Shelf shelf={this.state.shelf} saveShelf={this.saveShelf} />
         }
