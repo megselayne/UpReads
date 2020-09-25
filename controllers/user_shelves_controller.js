@@ -3,11 +3,20 @@ const Shelves = require('../models/Shelves');
 const UserBooks = require('../models/User_Books');
 
 const userShelvesController = {
+    index(req, res, next) {
+        UserShelves.getUserShelfNameIds(req.user.id)
+        .then(shelves => {
+            res.json({
+                shelves: shelves
+            })
+        })
+        .catch(next)
+    },
     create(req, res, next) {
         Shelves.getShelfById(req.params.id)
         .then(shelf => {
             new UserShelves({
-                user_id: 1,
+                user_id: req.user.id,
                 shelf_id: shelf.id
             })
             .save()
@@ -17,7 +26,7 @@ const userShelvesController = {
                     console.log(books)
                     books.map(book => {
                         new UserBooks({
-                            user_id: 1,
+                            user_id: req.user.id,
                             status: 'unread',
                             google_book_id: book,
                         })
@@ -44,14 +53,20 @@ const userShelvesController = {
         })
     },
     destroy(req, res, next) {
-        UserShelves.getUserShelfById(req.params.id)
+        UserShelves.getShelfByUserShelfIds(req.user.id, req.params.id)
         .then(shelf => {
             console.log(`controller shelf`, shelf)
             return shelf.delete()
         })
         .then(() => {
-            res.json({
-                message: 'Shelf successfully deleted.'
+            Shelves.getShelfByUserAndId(req.params.id, req.user.id)
+            .then(shelf => {
+                return shelf.delete()
+            })
+            .then(() => {
+                res.json({
+                    message: 'Both shelves successfully deleted'
+                })
             })
         })
         .catch((err) => {

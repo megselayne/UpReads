@@ -4,16 +4,22 @@ const ShelfBooks = require('../models/Shelf_books');
 const userBooksController = {
     create(req, res, next) {
         new UserBooks({
-           user_id: req.body.user_id, 
+           user_id: req.user.id, 
            status: 'unread',
            google_book_id: req.params.id,
            shelf_id: req.params.shelf_id,
+           title: req.body.title,
+           author: req.body.author,
+           cover_img: req.body.cover_img,
         })
         .save()
         .then(book => {
             new ShelfBooks({
                 shelf_id: req.params.shelf_id,
-                google_book_id: req.params.id
+                google_book_id: req.params.id,
+                title: req.body.title,
+                author: req.body.author,
+                cover_img: req.body.cover_img,
             })
             .save()
             .then(() => {

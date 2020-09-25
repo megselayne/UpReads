@@ -5,6 +5,7 @@ import Search from './Search';
 import SingleBook from './SingleBook';
 import Shelf from './Shelf';
 import fetch from 'node-fetch';
+import { Link, Redirect } from 'react-router-dom';
 
 class StateController extends Component {
     constructor(props){
@@ -16,6 +17,9 @@ class StateController extends Component {
             searchResults: null,
             currentId: props.currentId,
             shelf: null,
+            userShelves: null,
+            fireRedirect: false,
+            redirectPath: null,
         })
     }
     componentDidMount() {
@@ -32,6 +36,9 @@ class StateController extends Component {
         }
         else if(this.state.currentPage === 'shelf'){
             this.getShelves()
+        }
+        else if(this.state.currentPage === 'profile'){
+            this.getUserShelves()
         }
     }
     
@@ -64,6 +71,9 @@ class StateController extends Component {
             this.setState({
                 searchResults: res
             })
+            if(this.props.userState.auth){
+                this.getUserShelves()
+            }
             
         })
         .catch(err => {
@@ -79,6 +89,9 @@ class StateController extends Component {
                 singleBook: res,
                 isLoaded: true,
             })
+            if(this.props.userState.auth){
+                this.getUserShelves()
+            }
         })
     }
 
@@ -92,25 +105,137 @@ class StateController extends Component {
             })
         })
     }
+    
+    getUserShelves = () => {
+        fetch(`/api/v1/userShelf/all`)
+        .then(res => res.json())
+        .then(res => {
+            this.setState({
+                userShelves: res,
+                isLoaded: true
+            })
+        })
+    }
+
+    saveShelf = (id) => {
+        fetch(`/api/v1/userShelf/${id}`, {
+            method: 'POST'
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+            this.setState({
+                fireRedirect: true,
+                redirectPath: '/user/profile'
+            })
+            this.getUserShelves()
+            
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+    deleteShelf = (id) => {
+        fetch(`/api/v1/userShelf/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+            this.setState({
+                fireRedirect: true,
+                redirectPath: '/user/profile'
+            })
+            this.getUserShelves()
+
+            
+        })
+        .catch(err => {
+            console.log(err)
+        }) 
+    }
+
+    createShelf = (e, shelf) => {
+        e.preventDefault()
+        console.log(shelf)
+        fetch(`/api/v1/shelf`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                is_public: 'false',
+                shelf_name: shelf
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+            this.setState({
+                fireRedirect: true,
+                redirectPath: '/user/profile'
+            })
+            this.getUserShelves()
+
+            
+        })
+        .catch(err => {
+            console.log(err)
+        }) 
+    }
+
+    saveBook = (e, shelf_id, book) => {
+        e.preventDefault()
+        fetch(`/api/v1/books/user/${shelf_id}/${book.id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                title: book.volumeInfo.title,
+                author: book.volumeInfo.authors[0],
+                cover_img: book.volumeInfo.imageLinks.smallThumbnail || null,
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+            this.setState({
+                fireRedirect: true,
+                redirectPath: '/user/profile'
+            })
+            this.getUserShelves()
+
+            
+        })
+        .catch(err => {
+            console.log(err)
+        }) 
+    }
 
     decideWhichToRender =() => {
         switch(this.state.currentPage) {
             case 'home':
                 return <Home books={this.state.publicShelfBooks}/>
             case 'search':
-                return <Search searchFunc={this.searchBooks} searchResults={this.state.searchResults}/>
+                return <Search searchFunc={this.searchBooks} searchResults={this.state.searchResults} userShelves={this.state.userShelves}/>
             case 'profile':
-                return <Profile />
+                return <Profile userShelves={this.state.userShelves} deleteShelf={this.deleteShelf} getUserShelves={this.getUserShelves}/>
             case 'show':
-                return <SingleBook book={this.state.singleBook}/>
+                return <SingleBook book={this.state.singleBook} userShelves={this.state.userShelves} saveBook={this.saveBook} />
             case 'shelf':
-                return <Shelf shelf={this.state.shelf}/>
+                return <Shelf shelf={this.state.shelf} saveShelf={this.saveShelf} userState={this.props.userState}/>
         }
     }
     render(){
         return(
             <>
             {(this.state.isLoaded) ? this.decideWhichToRender() : <h1>Loading...</h1>}
+            {this.state.fireRedirect && <Redirect push to={this.state.redirectPath} />}
             </>
         )
     }

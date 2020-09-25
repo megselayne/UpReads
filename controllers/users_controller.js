@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/Users');
+const Shelves = require('../models/Shelves');
+const UserShelves = require('../models/User_Shelves');
 
 const usersController = {
     create(req, res, next) {
@@ -21,6 +23,27 @@ const usersController = {
                         user,
                     }
                 })
+                new Shelves({
+                    is_public: false,
+                    creator_user_id: req.user.id,
+                    shelf_name: 'My First Shelf'
+        
+                })
+                .save()
+                .then((shelf) => {
+                    new UserShelves({
+                        user_id: shelf.creator_user_id,
+                        shelf_id: shelf.id
+                    })
+                    .save()
+                    .then(() => {
+                        res.json({
+                            message: 'Shelf successfully saved!'
+                        })
+                    })
+                    .catch(next)
+                })
+                .catch(next)
             })
         })
         .catch(next);

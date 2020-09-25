@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom';
+import SaveBook from './SaveBook';
 
 class VerticalBookList extends Component {
     constructor(props) {
@@ -30,6 +31,7 @@ class VerticalBookList extends Component {
                     {book.volumeInfo.imageLinks && <Link to={`/books/${book.id}`}><img className='book-img' src={book.volumeInfo.imageLinks.smallThumbnail}/></Link> }
                     <h5>{book.volumeInfo.title}</h5>
                     <h6>{book.volumeInfo.authors[0]}</h6>
+                    
                     </div>
                     )
                 })
@@ -40,3 +42,6 @@ class VerticalBookList extends Component {
 }
 
 export default VerticalBookList;
+
+//this used to be on line 34 -> moving to singleBook component for ease of form state
+// {this.props.userShelves && <SaveBook userShelves={this.props.userShelves} />}
