@@ -16,6 +16,15 @@ class Shelves {
         });
     }
 
+    static getShelfByUserAndId(id, user_id){
+        return db.oneOrNone(`SELECT * FROM shelves WHERE id = $1 AND creator_user_id = $2`, [id, user_id])
+        .then((shelf) => {
+            if(shelf) return new this(shelf);
+            else throw new Error('Shelf not found!');
+        });
+    }
+    
+
     static getShelvesByUserId(user_id) {
         return db.manyOrNone(`SELECT * FROM shelves WHERE creator_user_id = $1`, user_id)
         .then((shelves) => {
@@ -80,6 +89,7 @@ class Shelves {
             SELECT
                 shelf_name,
                 shelves.id,
+                creator_user_id,
                 google_book_id,
                 title,
                 author,
@@ -87,7 +97,7 @@ class Shelves {
             FROM shelves
             LEFT JOIN
                 shelf_books on shelves.id = shelf_books.shelf_id
-            WHERE is_public = true and shelves.id = $1
+            WHERE shelves.id = $1
             `, id
         )
         .then(books => {

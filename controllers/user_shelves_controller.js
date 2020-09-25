@@ -59,8 +59,14 @@ const userShelvesController = {
             return shelf.delete()
         })
         .then(() => {
-            res.json({
-                message: 'Shelf successfully deleted.'
+            Shelves.getShelfByUserAndId(req.params.id, req.user.id)
+            .then(shelf => {
+                return shelf.delete()
+            })
+            .then(() => {
+                res.json({
+                    message: 'Both shelves successfully deleted'
+                })
             })
         })
         .catch((err) => {

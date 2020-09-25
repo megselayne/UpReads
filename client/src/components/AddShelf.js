@@ -11,7 +11,7 @@ class AddShelf extends Component {
     
     expandform = () => {
         this.setState({
-            clickedAdd: true,
+            clickedAdd: !this.state.clickedAdd,
         })
     }
     render(){

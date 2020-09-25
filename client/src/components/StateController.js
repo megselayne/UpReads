@@ -228,7 +228,7 @@ class StateController extends Component {
             case 'show':
                 return <SingleBook book={this.state.singleBook} userShelves={this.state.userShelves} saveBook={this.saveBook} />
             case 'shelf':
-                return <Shelf shelf={this.state.shelf} saveShelf={this.saveShelf} />
+                return <Shelf shelf={this.state.shelf} saveShelf={this.saveShelf} userState={this.props.userState}/>
         }
     }
     render(){

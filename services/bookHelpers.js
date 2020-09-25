@@ -14,6 +14,7 @@ const shelfReducer = (arr) => {
           shelf_name: current.shelf_name,
           id: current.id || null,
           shelf_id: current.shelf_id || null,
+          creator_user_id: current.creator_user_id || null,
           google_books: [
             {
               googleBookId: current.google_book_id,
@@ -100,6 +101,7 @@ const getPublicBooks = (req, res, next) => {
 const getPublicShelf = (req, res, next) => {
   Shelves.getPublicShelfBooksById(req.params.id)
   .then(shelves => {
+    console.log(shelves)
     const reduced = shelfReducer(shelves);
     res.locals.publicShelf = reduced;
     next();
