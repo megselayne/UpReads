@@ -25,6 +25,22 @@ class UserShelves {
         })
     }
 
+    static getUserShelfNameIds(user_id) {
+        return db.manyOrNone(
+            `
+            SELECT
+                shelf_name,
+                us.shelf_id
+            FROM user_shelves us
+            LEFT JOIN shelves on us.shelf_id = shelves.id
+            WHERE us.user_id = $1
+            `, user_id
+        )
+        .then(shelves => {
+            return shelves
+        })
+    }
+
     static getUserShelfBooks(user_id) {
         return db.manyOrNone(
             `
@@ -124,6 +140,5 @@ class UserShelves {
         return db.oneOrNone(`DELETE FROM user_shelves WHERE shelf_id = $1 AND user_id =$2`, [this.shelf_id, this.user_id]);
     }
 }
-
 
 module.exports = UserShelves;

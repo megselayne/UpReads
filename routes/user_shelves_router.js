@@ -3,7 +3,7 @@ const userShelfRouter = express.Router();
 const userShelvesController = require('../controllers/user_shelves_controller');
 const bookHelpers = require('../services/bookHelpers');
 
-
+userShelfRouter.get('/index', userShelvesController.index);
 userShelfRouter.get('/:id([0-9]+)', bookHelpers.getUserShelf, (req, res) =>{
     res.json(res.locals.userShelf)
 })

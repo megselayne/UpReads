@@ -3,6 +3,15 @@ const Shelves = require('../models/Shelves');
 const UserBooks = require('../models/User_Books');
 
 const userShelvesController = {
+    index(req, res, next) {
+        UserShelves.getUserShelfNameIds(req.user.id)
+        .then(shelves => {
+            res.json({
+                shelves: shelves
+            })
+        })
+        .catch(next)
+    },
     create(req, res, next) {
         Shelves.getShelfById(req.params.id)
         .then(shelf => {

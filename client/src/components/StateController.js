@@ -71,6 +71,9 @@ class StateController extends Component {
             this.setState({
                 searchResults: res
             })
+            if(this.props.userState.auth){
+                this.getUserShelves()
+            }
             
         })
         .catch(err => {
@@ -187,7 +190,7 @@ class StateController extends Component {
             case 'home':
                 return <Home books={this.state.publicShelfBooks}/>
             case 'search':
-                return <Search searchFunc={this.searchBooks} searchResults={this.state.searchResults}/>
+                return <Search searchFunc={this.searchBooks} searchResults={this.state.searchResults} userShelves={this.state.userShelves}/>
             case 'profile':
                 return <Profile userShelves={this.state.userShelves} deleteShelf={this.deleteShelf} getUserShelves={this.getUserShelves}/>
             case 'show':

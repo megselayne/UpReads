@@ -23,7 +23,7 @@ class Search extends Component {
                 onChange={this.handleFormChange} placeholder='Search' />
                 <input type='submit' value='Search' />
             </form>
-            {this.props.searchResults && <VerticalBookList searchResults={this.props.searchResults} />}
+            {this.props.searchResults && <VerticalBookList searchResults={this.props.searchResults} userShelves={this.props.userShelves} />}
             </>
 
         )
