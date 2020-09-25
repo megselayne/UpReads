@@ -155,6 +155,7 @@ class StateController extends Component {
 
     createShelf = (e, shelf) => {
         e.preventDefault()
+        console.log(shelf)
         fetch(`/api/v1/shelf`, {
             method: 'POST',
             headers: {
@@ -188,7 +189,7 @@ class StateController extends Component {
             case 'search':
                 return <Search searchFunc={this.searchBooks} searchResults={this.state.searchResults}/>
             case 'profile':
-                return <Profile userShelves={this.state.userShelves} deleteShelf={this.deleteShelf} createShelf={this.createShelf}/>
+                return <Profile userShelves={this.state.userShelves} deleteShelf={this.deleteShelf} getUserShelves={this.getUserShelves}/>
             case 'show':
                 return <SingleBook book={this.state.singleBook}/>
             case 'shelf':

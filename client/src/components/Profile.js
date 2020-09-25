@@ -7,7 +7,7 @@ const Profile = (props) => (
     
 <div>
     <h4>Your Shelves</h4>
-    <AddShelf createShelf={props.createShelf}/>
+    <AddShelf getUserShelves={props.getUserShelves}/>
     {
     props.userShelves.map(shelf => {
         return (
