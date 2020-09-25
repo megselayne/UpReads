@@ -89,6 +89,9 @@ class StateController extends Component {
                 singleBook: res,
                 isLoaded: true,
             })
+            if(this.props.userState.auth){
+                this.getUserShelves()
+            }
         })
     }
 
@@ -194,7 +197,7 @@ class StateController extends Component {
             case 'profile':
                 return <Profile userShelves={this.state.userShelves} deleteShelf={this.deleteShelf} getUserShelves={this.getUserShelves}/>
             case 'show':
-                return <SingleBook book={this.state.singleBook}/>
+                return <SingleBook book={this.state.singleBook} userShelves={this.state.userShelves} />
             case 'shelf':
                 return <Shelf shelf={this.state.shelf} saveShelf={this.saveShelf} />
         }
