@@ -5,7 +5,7 @@ import Search from './Search';
 import SingleBook from './SingleBook';
 import Shelf from './Shelf';
 import fetch from 'node-fetch';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class StateController extends Component {
     constructor(props){
@@ -153,6 +153,34 @@ class StateController extends Component {
         }) 
     }
 
+    createShelf = (e, shelf) => {
+        e.preventDefault()
+        fetch(`/api/v1/shelf`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                is_public: 'false',
+                shelf_name: shelf
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+            this.setState({
+                fireRedirect: true,
+                redirectPath: '/user/profile'
+            })
+            this.getUserShelves()
+
+            
+        })
+        .catch(err => {
+            console.log(err)
+        }) 
+    }
+
     decideWhichToRender =() => {
         switch(this.state.currentPage) {
             case 'home':
@@ -160,7 +188,7 @@ class StateController extends Component {
             case 'search':
                 return <Search searchFunc={this.searchBooks} searchResults={this.state.searchResults}/>
             case 'profile':
-                return <Profile userShelves={this.state.userShelves} deleteShelf={this.deleteShelf}/>
+                return <Profile userShelves={this.state.userShelves} deleteShelf={this.deleteShelf} createShelf={this.createShelf}/>
             case 'show':
                 return <SingleBook book={this.state.singleBook}/>
             case 'shelf':
@@ -171,6 +199,7 @@ class StateController extends Component {
         return(
             <>
             {(this.state.isLoaded) ? this.decideWhichToRender() : <h1>Loading...</h1>}
+            {this.state.fireRedirect && <Redirect push to={this.state.redirectPath} />}
             </>
         )
     }

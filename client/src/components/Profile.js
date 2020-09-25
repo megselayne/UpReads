@@ -1,11 +1,13 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {Link} from 'react-router-dom';
+import AddShelf from './AddShelf';
 
 
-// https://www.flaticon.com/premium-icon/icons/svg/3031/3031157.svg
 const Profile = (props) => (
+    
 <div>
     <h4>Your Shelves</h4>
+    <AddShelf createShelf={props.createShelf}/>
     {
     props.userShelves.map(shelf => {
         return (
