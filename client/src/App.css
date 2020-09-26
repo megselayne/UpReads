@@ -29,6 +29,7 @@
     flex-grow: 1;
     align-items: flex-start;
     padding-top: 2em;
+    padding-bottom: 2em;
 } 
 .nav-outer{
     width: 100vw;
@@ -97,7 +98,16 @@ nav a{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    align-items: flex-start;
     width: 7em;
+    margin-right: 10px;
+}
+.vertical-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 60vw;
     margin-right: 10px;
 }
 
@@ -135,5 +145,13 @@ nav a{
 }
 
 .register-link{
+    color: #588157;
+}
+
+footer{
+    width: 100vw;
+    border-top:  3px solid #3A5A40;
+    height: 3em;
+    text-align: center;
     color: #588157;
 }
