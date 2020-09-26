@@ -23,7 +23,6 @@ class VerticalBookList extends Component {
     render() {
         return(
             <div className='vertical-books'>
-            <h6>Powered by Google</h6>
             {
                 this.props.searchResults.items.map(book => {
                     return(
@@ -42,6 +41,3 @@ class VerticalBookList extends Component {
 }
 
 export default VerticalBookList;
-
-//this used to be on line 34 -> moving to singleBook component for ease of form state
-// {this.props.userShelves && <SaveBook userShelves={this.props.userShelves} />}

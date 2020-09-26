@@ -1,15 +1,20 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import Splash from './Splash'
 
 
 
       const Home = (props) => (
-        <div>
+        <>
+        <Splash />
+        <div className='container-2'>
+        <div className='main'>
           {
             props.books.map(shelf => {
               return (
-                <div>
-                  <span><Link to={`/shelf/${shelf.id}`} className='shelf-title'>{shelf.shelf_name}</Link></span>
+                <>
+                <span><Link to={`/shelf/${shelf.id}`} className='shelf-title'>{shelf.shelf_name}</Link></span>
+                  
                   <div className='shelf-books'>
                   {
                     shelf.google_books.map(book => {
@@ -23,11 +28,13 @@ import {Link} from 'react-router-dom';
                     })
                   }
                   </div>
-                </div>
+                </>
               )
             })
           }
         </div>
+        </div>
+        </>
       )
 
 export default Home;

@@ -1,6 +1,7 @@
 import React, {Component, useState} from 'react'
 import {Link} from 'react-router-dom';
 import EditShelf from './EditShelf'
+import Splash from './Splash';
 
 
 function CanAddEdit(userState, shelf, saveShelf) {
@@ -26,8 +27,9 @@ function CanAddEdit(userState, shelf, saveShelf) {
 }
 
 const Shelf = (props) =>(
-
-        <div>
+        <>
+        <Splash heading={props.shelf[0].shelf_name}/>
+        <div className='main'>
         {
           props.shelf.map(shelf => {
             return (
@@ -54,6 +56,7 @@ const Shelf = (props) =>(
           })
         }
       </div>
+      </>
 )
 
 export default Shelf;

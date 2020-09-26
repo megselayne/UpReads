@@ -1,11 +1,13 @@
 import React, {Component, useState} from 'react';
 import {Link} from 'react-router-dom';
 import AddShelf from './AddShelf';
+import Splash from './Splash';
 
 
 const Profile = (props) => (
-    
-<div>
+<>
+<Splash />
+<div className='main'>
     <h4>Your Shelves</h4>
     <AddShelf getUserShelves={props.getUserShelves} />
     {
@@ -37,6 +39,7 @@ const Profile = (props) => (
     })
     }
 </div>
+</>
 )
 
 export default Profile;
