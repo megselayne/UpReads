@@ -6,6 +6,7 @@ class Nav extends Component {
         return (
             <div className='nav-outer'>
             <nav className='nav-container'>
+                <img className='logo' src='https://www.flaticon.com/premium-icon/icons/svg/2847/2847689.svg' />
                 <ul className='navlinks'>
                     <li>
                         <Link to='/'>Home</Link>

@@ -24,11 +24,19 @@
 .nav-outer{
     width: 100vw;
     border-bottom: 3px solid #3A5A40;
+    display:flex;
+    justify-content: center;
 }
 .nav-container{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     width: 90vw;
+}
+.logo{
+    height: 2em;
+    width: 2em;
+
 }
 
 .navlinks{
@@ -84,21 +92,17 @@ nav a{
     width: 5em;
 }
 .add-logo{
-    height: 2em;
-    width: 2em;
+    height: 1.5em;
+    width: 1.5em;
 }
 
 .click{
-    /* background-color: #fca311; */
     margin: .25em;
-    padding: .25em;
+    padding: .75em 1.5em;
     text-decoration: none;
     border: none;
     color: white;
     border-radius: 2px;
-}
-.big{
-    padding: 1em 2em;
 }
 
 .primary{
