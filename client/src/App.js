@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import StateController from './components/StateController';
 import Nav from './components/Nav';
+import Splash from './components/Splash';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -74,6 +75,7 @@ class App extends Component {
     return (
       <div className='container'>
         <Nav auth={this.state.auth} logout={this.logout}/>
+        <Splash />
         <div className='main'>
           <Route exact path='/' render={() => (<StateController currentPage='home' />)} />
           <Route exact path='/search' render={() => (<StateController currentPage='search' userState={this.state} />)} />

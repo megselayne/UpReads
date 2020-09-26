@@ -14,7 +14,7 @@ class Login extends Component {
             <>
             <h4>Login</h4>
             <UserForm handleFormSubmit={this.props.handleFormSubmit} state={this.state} userState={this.props.userState} currentPage={this.props.currentPage}/>
-            <span>New User? <a href='/user/new'>Register here!</a></span>
+            <span>New User? <a className='register-link' href='/user/new'>Register here!</a></span>
             </>
         )
     }

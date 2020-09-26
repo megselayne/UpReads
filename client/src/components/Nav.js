@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 class Nav extends Component {
     render() {
         return (
+            <div className='nav-outer'>
             <nav className='nav-container'>
                 <ul className='navlinks'>
                     <li>
@@ -16,6 +17,7 @@ class Nav extends Component {
                     {this.props.auth ? (<li><Link className='log' to='/auth/logout' onClick={this.props.logout}>Logout</Link></li>) : (<li><Link className='log' to='/auth/login'>Login</Link></li>)}
                 </ul>
             </nav>
+            </div>
         )
     }
 }

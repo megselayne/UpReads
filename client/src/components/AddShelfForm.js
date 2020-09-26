@@ -50,7 +50,7 @@ class AddShelfForm extends Component {
             <form onSubmit={(e)=> this.createShelf(e, this.state.shelfName)}>
                 <input type='text' name='shelfName' onChange={this.handleFormChange} 
                 value={this.state.shelfName} placeholder='Shelf Name'/>
-                <input type='submit' value='Add' />
+                <input className='primary click big' type='submit' value='Add' />
             </form>
         )
     }

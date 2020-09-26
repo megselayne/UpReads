@@ -31,25 +31,25 @@ const Shelf = (props) =>(
         {
           props.shelf.map(shelf => {
             return (
-              <div>
+              <>
                 <div className='shelf-books'>
-                <h3>{shelf.shelf_name}</h3>
+                <h3 className='shelf-title'>{shelf.shelf_name}</h3>
                { CanAddEdit(props.userState, shelf, props.saveShelf) }
                 </div>
-                <div className='vertical-books'>
+                <div className='row'>
                 {
                   shelf.google_books.map(book => {
                     return(
                     <div className='vertical-books'>
                     {book.cover_img && <Link to={`/books/${book.googleBookId}`}><img className='book-img' src={book.cover_img}/></Link> }
-                    <h5>{book.title}</h5>
-                    <h6>{book.author}</h6>
+                    <p className='title'>{book.title}</p>
+                    <p className='author'>{book.author}</p>
                     </div>
                     )
                   })
                 }
                 </div>
-              </div>
+              </>
             )
           })
         }

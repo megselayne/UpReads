@@ -14,7 +14,7 @@ const Profile = (props) => (
         <div>
             
             <div className='shelf-books' key={shelf.shelf_id}>
-            <span><Link to={`/shelf/${shelf.shelf_id}`}>{shelf.shelf_name}</Link></span>
+            <span><Link className='shelf-title' to={`/shelf/${shelf.shelf_id}`}>{shelf.shelf_name}</Link></span>
             <img className='add-logo'src='https://www.flaticon.com/premium-icon/icons/svg/3031/3031157.svg'
             onClick={() => props.deleteShelf(shelf.shelf_id)}
             />
@@ -25,8 +25,8 @@ const Profile = (props) => (
                 return(
                 <div className='vertical-books'>
                 {book.cover_img && <Link to={`/books/${book.googleBookId}`}><img className='book-img' src={book.cover_img}/></Link> }
-                <h5>{book.title}</h5>
-                <h6>{book.author}</h6>
+                <p className='title'>{book.title}</p>
+                <p className='author'>{book.author}</p>
                 </div>
                 )
             })

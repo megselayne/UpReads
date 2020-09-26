@@ -18,10 +18,10 @@ class Search extends Component {
     render() {
         return(
             <>
-            <form onSubmit={(e)=> this.props.searchFunc(e,this.state.query)}>
+            <form className='row' onSubmit={(e)=> this.props.searchFunc(e,this.state.query)}>
                 <input type='text' name='query' value={this.state.name}
                 onChange={this.handleFormChange} placeholder='Search' />
-                <input type='submit' value='Search' />
+                <input className='primary click big' type='submit' value='Search' />
             </form>
             {this.props.searchResults && <VerticalBookList searchResults={this.props.searchResults} userShelves={this.props.userShelves} />}
             </>

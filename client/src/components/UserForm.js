@@ -31,7 +31,7 @@ class UserForm extends Component {
                 <input type='text' name='username' value={this.state.username} placeholder='Username' onChange={this.handleFormChanges} required />
                 {this.props.currentPage === ('new') && <input type='email' name='email' value={this.state.email} placeholder='Email' onChange={this.handleFormChanges} />}
                 <input type='password' name='password' value={this.state.password} placeholder='Password' onChange={this.handleFormChanges} required />
-                <input type='submit' value={this.state.buttonName} />
+                <input className='primary big click' type='submit' value={this.state.buttonName} />
             </form>
         )
     }

@@ -19,7 +19,7 @@ class AddShelf extends Component {
             <>
             {this.state.clickedAdd ? 
             <AddShelfForm getUserShelves={this.props.getUserShelves}/>
-            : <button
+            : <button className='primary click big'
             onClick={() => this.expandform()}>New Shelf</button>}
             </>
         )
