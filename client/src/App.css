@@ -95,6 +95,7 @@ nav a{
 .row{
     display: flex;
     align-items: center;
+    margin: 10px;
 }
 .vertical-books{
     display: flex;
@@ -134,7 +135,13 @@ nav a{
 .primary{
     font-weight: bold;
     background-color: #588157;
- }
+}
+
+.primary-text{
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #588157;
+}
 
  input[type=text], input[type=password], input[type=email]{
     width: 100%;

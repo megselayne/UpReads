@@ -14,7 +14,7 @@ function CanAddEdit(userState, shelf, saveShelf) {
     }
     else if(userState.user.id === shelf.creator_user_id){
       if(!visibility){
-        return <img className='add-logo' src='https://www.flaticon.com/premium-icon/icons/svg/657/657120.svg'
+        return <img className='add-logo' src='https://www.flaticon.com/premium-icon/icons/svg/2997/2997896.svg'
         onClick={() => setVisibility(true)}
         />
         }
@@ -34,11 +34,11 @@ const Shelf = (props) =>(
           props.shelf.map(shelf => {
             return (
               <>
-                <div className='shelf-books'>
+                <div className='row'>
                 <h3 className='shelf-title'>{shelf.shelf_name}</h3>
                { CanAddEdit(props.userState, shelf, props.saveShelf) }
                 </div>
-                <div className='row'>
+                <div className='shelf-books'>
                 {
                   shelf.google_books.map(book => {
                     return(

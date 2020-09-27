@@ -28,10 +28,10 @@ class VerticalBookList extends Component {
                 output += '<span>&#x2605;</span>'
             }
             else{
-                output+= '<span>&#x2606;</span>'
+                output += '<span>&#x2606;</span>'
             }
         }
-        return output
+        return <div dangerouslySetInnerHTML={{__html: output }}></div>
     }
 
     render() {
@@ -46,6 +46,7 @@ class VerticalBookList extends Component {
                     <div>
                     <h5>{book.volumeInfo.title}</h5>
                     <h6>by {book.volumeInfo.authors && book.volumeInfo.authors[0]}</h6>
+                    {book.volumeInfo.averageRating && this.setStarRating(book.volumeInfo.averageRating)}
                     </div>
                     </div>
                     )
