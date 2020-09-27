@@ -96,11 +96,16 @@ nav a{
     display: flex;
     margin-top: 10px;
     overflow-x: auto;
+    max-width: 60vw;
 }
 .row{
     display: flex;
     align-items: center;
     margin: 10px;
+}
+.row-top{
+    display: flex;
+    margin: 10px;  
 }
 .vertical-books{
     display: flex;
