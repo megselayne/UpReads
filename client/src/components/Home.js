@@ -14,7 +14,6 @@ import Splash from './Splash'
               return (
                 <>
                 <span><Link to={`/shelf/${shelf.id}`} className='shelf-title'>{shelf.shelf_name}</Link></span>
-                  
                   <div className='shelf-books'>
                   {
                     shelf.google_books.map(book => {
