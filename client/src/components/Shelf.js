@@ -26,6 +26,19 @@ function CanAddEdit(userState, shelf, saveShelf) {
   }
 }
 
+function CanDelete(userState, book, deleteBook, shelf) {
+  if(userState.user){
+    console.log(`there's a user logged in`)
+    console.log(userState.user.id, shelf.creator_user_id)
+    if(userState.user.id === shelf.creator_user_id){
+      console.log(`there's a matching creator`)
+      return <img className='add-logo' 
+                src='https://www.flaticon.com/premium-icon/icons/svg/3031/3031157.svg'
+                onClick={() => deleteBook(shelf.id, book.googleBookId)} />    
+    }
+  }
+}
+
 const Shelf = (props) =>(
         <>
         <Splash heading={props.shelf[0].shelf_name}/>
@@ -43,7 +56,10 @@ const Shelf = (props) =>(
                   shelf.google_books.map(book => {
                     return(
                     <div className='vertical-books'>
-                    {book.cover_img && <Link to={`/books/${book.googleBookId}`}><img className='book-img' src={book.cover_img}/></Link> }
+                      <div className='row-top'>
+                      {book.cover_img && <Link to={`/books/${book.googleBookId}`}><img className='book-img' src={book.cover_img}/></Link> }
+                      { CanDelete(props.userState, book, props.deleteBook, props.shelf[0]) }
+                      </div>
                     <p className='title'>{book.title}</p>
                     <p className='author'>{book.author}</p>
                     </div>

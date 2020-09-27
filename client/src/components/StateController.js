@@ -217,6 +217,29 @@ class StateController extends Component {
         }) 
     }
 
+    deleteBook = (shelf_id, book_id) => {
+        fetch(`/api/v1/books/user/${shelf_id}/${book_id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+            this.setState({
+                fireRedirect: true,
+                redirectPath: '/user/profile'
+            })
+            this.getUserShelves()
+
+            
+        })
+        .catch(err => {
+            console.log(err)
+        }) 
+    }
+
     decideWhichToRender =() => {
         switch(this.state.currentPage) {
             case 'home':
@@ -228,7 +251,7 @@ class StateController extends Component {
             case 'show':
                 return <SingleBook book={this.state.singleBook} userShelves={this.state.userShelves} saveBook={this.saveBook} />
             case 'shelf':
-                return <Shelf shelf={this.state.shelf} saveShelf={this.saveShelf} userState={this.props.userState}/>
+                return <Shelf shelf={this.state.shelf} saveShelf={this.saveShelf} userState={this.props.userState} deleteBook={this.deleteBook}/>
         }
     }
     render(){

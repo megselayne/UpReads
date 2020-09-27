@@ -55,7 +55,7 @@ const userBooksController = {
         .catch(next)
     },
     destroy(req, res, next) {
-        UserBooks.getBookByGId(req.params.id, req.params.shelf_id)
+        UserBooks.getBookByGId(req.params.id, req.params.shelf_id, req.user.id)
         .then(book => {
             return book.delete()
         })
