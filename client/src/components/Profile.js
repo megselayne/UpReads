@@ -3,12 +3,15 @@ import {Link} from 'react-router-dom';
 import AddShelf from './AddShelf';
 import Splash from './Splash';
 
+const setGreeting = (user) => {
+    return `Welcome back, ${user}`
+}
 
 const Profile = (props) => (
 <>
-<Splash />
+<Splash heading={setGreeting(props.userState.user.username)}/>
+<div className='container-2'>
 <div className='main'>
-    <h4>Your Shelves</h4>
     <AddShelf getUserShelves={props.getUserShelves} />
     {
     props.userShelves.map(shelf => {
@@ -38,6 +41,7 @@ const Profile = (props) => (
         )
     })
     }
+    </div>
 </div>
 </>
 )

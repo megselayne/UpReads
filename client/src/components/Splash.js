@@ -6,9 +6,9 @@ class Splash extends Component {
         return (
             <>
             <div className='splash'>
-                <div className='container-2'>
+                <div className='container-2 '>
                     <div className='main'>
-                        <h1>{this.props.heading ? this.props.heading : 'Up Your Reads'}</h1>
+                        <h1 >{this.props.heading ? this.props.heading : 'Up Your Reads'}</h1>
                     </div>
                 </div>
             </div>
