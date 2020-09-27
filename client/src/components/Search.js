@@ -22,17 +22,15 @@ class Search extends Component {
         return(
             <>
             <Splash heading='Find Your next UpRead'/>
-
+            <div className='container-2'>
             <form className='row' onSubmit={(e)=> this.props.searchFunc(e,this.state.query)}>
                 <input type='text' name='query' value={this.state.name}
                 onChange={this.handleFormChange} placeholder='Title, Author, Subject' />
                 <input className='primary click big' type='submit' value='Search' />
             </form>
-            <img src='https://books.google.com/googlebooks/images/poweredby.png' />
-            <div className='container-2'>
-            <div className='main'>
+            <img src='https://books.google.com/googlebooks/images/poweredby.png' />           
+
             {this.props.searchResults && <VerticalBookList searchResults={this.props.searchResults} userShelves={this.props.userShelves} />}
-            </div>
             </div>
             </>
 
