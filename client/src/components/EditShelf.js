@@ -53,10 +53,10 @@ class EditShelf extends Component {
     render(){
         return (
             <>
-            <form onSubmit={(e)=> this.createShelf(e, this.state.shelfName)}>
+            <form className='row' onSubmit={(e)=> this.createShelf(e, this.state.shelfName)}>
                 <input type='text' name='shelfName' onChange={this.handleFormChange} 
                 value={this.state.shelfName} placeholder='Shelf Name'/>
-                <input type='submit' value='Edit' />
+                <input className='primary click big' type='submit' value='Edit' />
             </form>
             {this.state.fireRedirect && <Redirect push to={this.state.redirectPath} />}
             </>

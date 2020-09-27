@@ -20,21 +20,38 @@ class VerticalBookList extends Component {
         console.log(this.state.redirectPath)
         console.log(this.state.fireRedirect)
     }
+
+    setStarRating = (rating) => {
+        let output = ''
+        for(let i = 1; i <= 5; i++){
+            if(Math.floor(rating) >= i){
+                output += '<span>&#x2605;</span>'
+            }
+            else{
+                output += '<span>&#x2606;</span>'
+            }
+        }
+        return <div dangerouslySetInnerHTML={{__html: output }}></div>
+    }
+
     render() {
         return(
-            <div className='vertical-books'>
-            <h6>Powered by Google</h6>
+            <div className='vertical-list'>
             {
-                this.props.searchResults.items.map(book => {
+                this.props.searchResults.items ?
+                (this.props.searchResults.items.map(book => {
                     return(
-                    <div key={book.id}>
+                    <div key={book.id} className='row'>
                     {book.volumeInfo.imageLinks && <Link to={`/books/${book.id}`}><img className='book-img' src={book.volumeInfo.imageLinks.smallThumbnail}/></Link> }
+                    <div>
                     <h5>{book.volumeInfo.title}</h5>
-                    <h6>{book.volumeInfo.authors[0]}</h6>
-                    
+                    <h6>by {book.volumeInfo.authors && book.volumeInfo.authors[0]}</h6>
+                    {book.volumeInfo.averageRating && this.setStarRating(book.volumeInfo.averageRating)}
+                    </div>
                     </div>
                     )
                 })
+                ) : <h4>No Results! Try a Different Search</h4>
             }
             </div>
         )
@@ -42,6 +59,3 @@ class VerticalBookList extends Component {
 }
 
 export default VerticalBookList;
-
-//this used to be on line 34 -> moving to singleBook component for ease of form state
-// {this.props.userShelves && <SaveBook userShelves={this.props.userShelves} />}

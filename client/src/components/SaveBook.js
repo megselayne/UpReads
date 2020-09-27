@@ -17,7 +17,7 @@ class SaveBook extends Component {
     }
     render(){
         return(
-            <form onSubmit={(e)=> this.props.saveBook(e, this.state.shelf_id, this.state.book)}>
+            <form className='row' onSubmit={(e)=> this.props.saveBook(e, this.state.shelf_id, this.state.book)}>
                 <select value={[this.state.value, this.state.shelf_id]}
                 onChange={this.handleFormChange}>
             {
@@ -29,7 +29,7 @@ class SaveBook extends Component {
                 
             }
                 </select>
-                <input type='submit' value='Save' />
+                <input className='primary click' type='submit' value='Save' />
             </form>
         )
     }

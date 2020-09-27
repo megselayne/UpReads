@@ -5,7 +5,7 @@ class Footer extends Component {
     render() {
         return (
             <footer>
-
+                <p>&#169;UpReads</p>
             </footer>
         )
     }

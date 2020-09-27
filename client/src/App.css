@@ -1,17 +1,58 @@
 .container{
     display: flex;
     flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+}
+.container-2{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    width: 60vw;
+    align-items: flex-start;
+
+}
+.splash{
+    background-image: url('./assets/book_shelf.jpg');
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 40vh;
+    width: 100vw;
+    color: #A3B18A;
+    border-bottom: 3px solid #3A5A40;
+}
+.splash-header{
+    background-color: #000;
+    opacity: .3;
 }
 
 .main{
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    align-items: flex-start;
+    padding-top: 2em;
+    padding-bottom: 2em;
+} 
+.nav-outer{
+    width: 100vw;
+    border-bottom: 3px solid #3A5A40;
+    display:flex;
+    justify-content: center;
 }
 .nav-container{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     width: 90vw;
+}
+.logo{
+    height: 2em;
+    width: 2em;
+
 }
 
 .navlinks{
@@ -27,14 +68,56 @@ nav li{
     margin: 5px;
 }
 
-.shelf-books{
-    display: flex;
-    align-items: center;
+nav a{
+    text-decoration: none;
+    color: #588157;
 }
 
+.shelf-title{
+    text-decoration: none;
+    color: #000;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.title{
+    font-size: .8em;
+    margin: 0;
+}
+.author{
+    font-size: .5em;
+}
+.shelf{
+    flex: 1;
+    display: flex;
+    overflow: auto;
+}
+
+.shelf-books{
+    display: flex;
+    margin-top: 10px;
+    overflow-x: auto;
+}
+.row{
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
 .vertical-books{
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 7em;
+    margin-right: 10px;
+}
+
+.vertical-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 60vw;
+    margin-right: 10px;
 }
 
 .book-img{
@@ -42,6 +125,48 @@ nav li{
     width: 5em;
 }
 .add-logo{
-    height: 2em;
-    width: 2em;
+    height: 1.5em;
+    width: 1.5em;
+}
+
+.click{
+    margin: .25em;
+    padding: .75em 1.5em;
+    text-decoration: none;
+    border: none;
+    color: white;
+    border-radius: 2px;
+}
+
+.primary{
+    font-weight: bold;
+    background-color: #588157;
+}
+
+.primary-text{
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #588157;
+}
+
+ input[type=text], input[type=password], input[type=email], select{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.register-link{
+    color: #588157;
+}
+
+footer{
+    width: 100vw;
+    border-top:  3px solid #3A5A40;
+    height: 3em;
+    text-align: center;
+    color: #588157;
 }

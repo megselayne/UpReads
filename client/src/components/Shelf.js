@@ -1,6 +1,7 @@
 import React, {Component, useState} from 'react'
 import {Link} from 'react-router-dom';
 import EditShelf from './EditShelf'
+import Splash from './Splash';
 
 
 function CanAddEdit(userState, shelf, saveShelf) {
@@ -13,7 +14,7 @@ function CanAddEdit(userState, shelf, saveShelf) {
     }
     else if(userState.user.id === shelf.creator_user_id){
       if(!visibility){
-        return <img className='add-logo' src='https://www.flaticon.com/premium-icon/icons/svg/657/657120.svg'
+        return <img className='add-logo' src='https://www.flaticon.com/premium-icon/icons/svg/2997/2997896.svg'
         onClick={() => setVisibility(true)}
         />
         }
@@ -26,34 +27,36 @@ function CanAddEdit(userState, shelf, saveShelf) {
 }
 
 const Shelf = (props) =>(
-
-        <div>
+        <>
+        <Splash heading={props.shelf[0].shelf_name}/>
+        <div className='main'>
         {
           props.shelf.map(shelf => {
             return (
-              <div>
-                <div className='shelf-books'>
-                <h3>{shelf.shelf_name}</h3>
+              <>
+                <div className='row'>
+                <h3 className='shelf-title'>{shelf.shelf_name}</h3>
                { CanAddEdit(props.userState, shelf, props.saveShelf) }
                 </div>
-                <div className='vertical-books'>
+                <div className='shelf-books'>
                 {
                   shelf.google_books.map(book => {
                     return(
                     <div className='vertical-books'>
                     {book.cover_img && <Link to={`/books/${book.googleBookId}`}><img className='book-img' src={book.cover_img}/></Link> }
-                    <h5>{book.title}</h5>
-                    <h6>{book.author}</h6>
+                    <p className='title'>{book.title}</p>
+                    <p className='author'>{book.author}</p>
                     </div>
                     )
                   })
                 }
                 </div>
-              </div>
+              </>
             )
           })
         }
       </div>
+      </>
 )
 
 export default Shelf;

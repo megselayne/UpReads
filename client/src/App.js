@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import StateController from './components/StateController';
 import Nav from './components/Nav';
+import Splash from './components/Splash';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -74,14 +75,13 @@ class App extends Component {
     return (
       <div className='container'>
         <Nav auth={this.state.auth} logout={this.logout}/>
-        <div className='main'>
           <Route exact path='/' render={() => (<StateController currentPage='home' />)} />
           <Route exact path='/search' render={() => (<StateController currentPage='search' userState={this.state} />)} />
           <Route exact path='/shelf/:id' render={props => (<StateController currentPage='shelf' currentId={props.match.params.id} userState={this.state} />)} />
           <Route exact path='/books/:id' render={props => (<StateController currentPage='show' currentId={props.match.params.id} userState={this.state} />)} />
           <Route exact path='/user/profile' render={() => (
             this.state.auth
-            ? <StateController currentPage='profile' />
+            ? <StateController currentPage='profile' userState={this.state} />
             : <Redirect to='/auth/login' />
             )} />
           <Route exact path='/auth/login' render={() => (
@@ -95,7 +95,7 @@ class App extends Component {
           : <Register handleFormSubmit={this.handleFormSubmit} userState={this.state} currentPage='new'/>
           )} />
         <Route exact path='/auth/logout' render={() => (<StateController currentPage='home' />)} />
-        </div>
+
         <Footer />
         
       </div>

@@ -224,7 +224,7 @@ class StateController extends Component {
             case 'search':
                 return <Search searchFunc={this.searchBooks} searchResults={this.state.searchResults} userShelves={this.state.userShelves}/>
             case 'profile':
-                return <Profile userShelves={this.state.userShelves} deleteShelf={this.deleteShelf} getUserShelves={this.getUserShelves}/>
+                return <Profile userShelves={this.state.userShelves} deleteShelf={this.deleteShelf} getUserShelves={this.getUserShelves} userState={this.props.userState}/>
             case 'show':
                 return <SingleBook book={this.state.singleBook} userShelves={this.state.userShelves} saveBook={this.saveBook} />
             case 'shelf':
