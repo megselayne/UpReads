@@ -41,12 +41,13 @@ class VerticalBookList extends Component {
                 this.props.searchResults.items ?
                 (this.props.searchResults.items.map(book => {
                     return(
-                    <div key={book.id} className='row'>
+                    <div key={book.id} className='row-top'>
                     {book.volumeInfo.imageLinks && <Link to={`/books/${book.id}`}><img className='book-img' src={book.volumeInfo.imageLinks.smallThumbnail}/></Link> }
-                    <div>
-                    <h5>{book.volumeInfo.title}</h5>
+                    <div className='column-top'>
+                    <h5 style={{margin: 0}}>{book.volumeInfo.title}</h5>
                     <h6>by {book.volumeInfo.authors && book.volumeInfo.authors[0]}</h6>
                     {book.volumeInfo.averageRating && this.setStarRating(book.volumeInfo.averageRating)}
+                    <p dangerouslySetInnerHTML={{__html: book.searchInfo.textSnippet }}></p>
                     </div>
                     </div>
                     )

@@ -49,6 +49,7 @@ const userShelfReducer = (arr) => {
           shelf_name: current.shelf_name,
           id: current.id || null,
           shelf_id: current.shelf_id || null,
+          status: current.status || null,
           google_books: [
             {
               googleBookId: current.google_book_id,
