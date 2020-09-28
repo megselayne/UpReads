@@ -115,7 +115,6 @@ nav a{
 }
 .vertical-books{
     display: flex;
-    flex-grow:1;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
@@ -125,6 +124,7 @@ nav a{
 
 .vertical-list{
     display: flex;
+    flex-grow:1;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
@@ -203,8 +203,15 @@ footer{
     }
     .vertical-list{
         width: 80vw;
-        overflow: auto;
-    
+        flex-grow:1;
+    }
+    .click{
+        margin: .25em;
+        padding: .4em 1em;
+        text-decoration: none;
+        border: none;
+        color: white;
+        border-radius: 2px;
     }
     input[type=text], input[type=password], input[type=email]{
         padding: 5px 5px;
