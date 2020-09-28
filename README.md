@@ -2,7 +2,7 @@
 - UpReads is a book discovery app with a social justice tilt. Instead of having these collections burried, they will be front and center on the home page. The concept is inspired by images of bookshelf recommendations circulating on social media in this time of social consciousness raising. Instead of only sharing images, subject matter expects can create shelves that can be saved by other users, who can track their progress towards reading them. Individuals can also create their own shelves for personal use. Featured shelves in this release represent 
 
 ## Deployed App
-- https://damp-oasis-30141.herokuapp.com/
+- https://upreads.herokuapp.com/
 - Test credentials: 
 
 	|Username|Password|
