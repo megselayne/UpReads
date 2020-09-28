@@ -115,6 +115,7 @@ nav a{
 }
 .vertical-books{
     display: flex;
+    flex-grow:1;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
@@ -200,12 +201,9 @@ footer{
     .splash{
         height: 15vh;
     }
-    .container-2{
-        width: 100vw;
-    
-    }
     .vertical-list{
         width: 80vw;
+        overflow: auto;
     
     }
     input[type=text], input[type=password], input[type=email]{
