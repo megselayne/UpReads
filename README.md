@@ -3,6 +3,11 @@
 
 ## Deployed App
 - https://damp-oasis-30141.herokuapp.com/
+- Test credentials: 
+
+	|Username|Password|
+	|-|-|
+	|1testuser | 1testuser|
 
 ## Technologies
 - React, Express, PSQL
