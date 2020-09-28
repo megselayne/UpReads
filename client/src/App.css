@@ -129,6 +129,7 @@ nav a{
     align-items: flex-start;
     width: 60vw;
     margin-right: 10px;
+    max-width: 600px;
 }
 
 .book-img{
@@ -161,7 +162,7 @@ nav a{
 }
 
 .description{
-    font-size: .8em;
+    font-size: .9em;
 }
 
  input[type=text], input[type=password], input[type=email], select{
