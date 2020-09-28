@@ -24,6 +24,12 @@
     color: #A3B18A;
     border-bottom: 3px solid #3A5A40;
 }
+.splash-container{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+}
 .splash-header{
     background-color: #000;
     opacity: .3;
@@ -96,7 +102,7 @@ nav a{
 .shelf-books{
     display: flex;
     margin-top: 10px;
-    overflow-x: auto;
+    overflow-x: scroll;
     max-width: 60vw;
 }
 .row{
