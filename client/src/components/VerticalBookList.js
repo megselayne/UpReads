@@ -45,9 +45,9 @@ class VerticalBookList extends Component {
                     {book.volumeInfo.imageLinks && <Link to={`/books/${book.id}`}><img className='book-img' src={book.volumeInfo.imageLinks.smallThumbnail}/></Link> }
                     <div className='column-top'>
                     <h5 style={{margin: 0}}>{book.volumeInfo.title}</h5>
-                    <h6>by {book.volumeInfo.authors && book.volumeInfo.authors[0]}</h6>
+                    <h6 style={{margin: 5}}>by {book.volumeInfo.authors && book.volumeInfo.authors[0]}</h6>
                     {book.volumeInfo.averageRating && this.setStarRating(book.volumeInfo.averageRating)}
-                    <p dangerouslySetInnerHTML={{__html: book.searchInfo.textSnippet }}></p>
+                    <p className='description' dangerouslySetInnerHTML={{__html: book.searchInfo.textSnippet }}></p>
                     </div>
                     </div>
                     )
