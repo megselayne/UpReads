@@ -10,7 +10,7 @@
     flex-grow: 1;
     flex-direction: column;
     width: 60vw;
-    align-items: flex-start;
+    align-items: center;
 
 }
 .splash{
@@ -160,6 +160,10 @@ nav a{
     color: #588157;
 }
 
+.description{
+    font-size: .8em;
+}
+
  input[type=text], input[type=password], input[type=email], select{
     width: 100%;
     padding: 12px 20px;
@@ -181,3 +185,39 @@ footer{
     text-align: center;
     color: #588157;
 }
+
+@media (max-width:700px) {
+    h1,h2,h3,h4{
+        text-align: center;
+    }
+    nav ul li {
+        font-size: .8em;
+      }
+    .header{
+        font-size: 1.3em;
+    }
+    .splash{
+        height: 15vh;
+    }
+    .container-2{
+        width: 100vw;
+    
+    }
+    .vertical-list{
+        width: 80vw;
+    
+    }
+    input[type=text], input[type=password], input[type=email]{
+        padding: 5px 5px;
+        margin: 5px 0;
+    }
+    .title, .author{
+        font-size: .5em;
+        margin: 0;
+        text-align: center;
+    }
+    .description{
+        font-size: .2em;
+    }
+
+  }
