@@ -29,6 +29,14 @@ class UserBooks {
         });
     }
 
+    static getFirstBookByGId(id, user_id) {
+        return db.oneOrNone(`SELECT * FROM user_books WHERE google_book_id = $1 AND user_id = $2 LIMIT 1`, [id, user_id])
+        .then(book => {
+            if(book) return new this(book);
+            else throw new Error('Book not found!');
+        });
+    }
+
     save() {
         return db.one(
             `

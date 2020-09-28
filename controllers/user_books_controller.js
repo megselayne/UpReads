@@ -32,12 +32,12 @@ const userBooksController = {
         .catch(next)
     },
     show(req, res, next) {
-        UserBooks.getBookByGId(req.params.id, req.params.shelf_id, req.user.id)
+        UserBooks.getFirstBookByGId(req.params.id, req.user.id)
         .then(book => {
             res.json({
                 message: 'ok',
                 userBook: book,
-                gBook: res.locals.singleBook,
+                // gBook: res.locals.singleBook,
             })
         })
         .catch(next)

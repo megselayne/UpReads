@@ -28,8 +28,6 @@ function CanAddEdit(userState, shelf, saveShelf) {
 
 function CanDelete(userState, book, deleteBook, shelf) {
   if(userState.user){
-    console.log(`there's a user logged in`)
-    console.log(userState.user.id, shelf.creator_user_id)
     if(userState.user.id === shelf.creator_user_id){
       console.log(`there's a matching creator`)
       return <img className='add-logo' 

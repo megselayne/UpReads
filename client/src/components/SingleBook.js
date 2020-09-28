@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
 import SaveBook from './SaveBook';
 import Splash from './Splash';
+import EditBook from './EditBook';
 
 class SingleBook extends Component {
+    
 
     setStarRating = (rating) => {
         let output = ''
@@ -29,6 +31,8 @@ class SingleBook extends Component {
             {this.props.userShelves && <SaveBook userShelves={this.props.userShelves} saveBook={this.props.saveBook} book={this.props.book}/>}
             <h5><a className='primary-text' href={this.props.book.volumeInfo.previewLink} rel="noopener noreferrer" target='_blank'>{this.props.book.volumeInfo.title}</a></h5>    
             <h6>by {this.props.book.volumeInfo.authors[0]}</h6>
+            { this.props.userBook && <p>{this.props.userBook.status}</p>}
+            { this.props.userBook && <EditBook userBook={this.props.userBook}/>}
             {this.props.book.volumeInfo.averageRating && this.setStarRating(this.props.book.volumeInfo.averageRating)}
             <div dangerouslySetInnerHTML={{__html: this.props.book.volumeInfo.description}}></div>
             </div>

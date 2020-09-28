@@ -81,6 +81,19 @@ class StateController extends Component {
         })
     }
 
+    getUserBook = () => {
+        fetch(`/api/v1/books/user/${this.state.currentId}`)
+        .then(res => res.json())
+        .then(res => {
+            this.setState({
+                userBook: res.userBook,
+                isLoaded: true,
+            })
+            this.getUserShelves()
+
+        })
+    }
+
     getSingleBook = () => {
         fetch(`/api/v1/books/single/${this.state.currentId}`)
         .then(res => res.json())
@@ -90,7 +103,7 @@ class StateController extends Component {
                 isLoaded: true,
             })
             if(this.props.userState.auth){
-                this.getUserShelves()
+                this.getUserBook()
             }
         })
     }
@@ -249,9 +262,9 @@ class StateController extends Component {
             case 'profile':
                 return <Profile userShelves={this.state.userShelves} deleteShelf={this.deleteShelf} getUserShelves={this.getUserShelves} userState={this.props.userState}/>
             case 'show':
-                return <SingleBook book={this.state.singleBook} userShelves={this.state.userShelves} saveBook={this.saveBook} />
+                return <SingleBook book={this.state.singleBook} userBook={this.state.userBook} userShelves={this.state.userShelves} saveBook={this.saveBook} userState={this.props.userState} />
             case 'shelf':
-                return <Shelf shelf={this.state.shelf} saveShelf={this.saveShelf} userState={this.props.userState} deleteBook={this.deleteBook}/>
+                return <Shelf currentId={this.state.currentId} shelf={this.state.shelf} saveShelf={this.saveShelf} userState={this.props.userState} deleteBook={this.deleteBook}/>
         }
     }
     render(){

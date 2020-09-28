@@ -45,22 +45,35 @@ class UserShelves {
         return db.manyOrNone(
             `
             SELECT
-                shelf_name,
-                user_shelves.shelf_id,
-                google_book_id,
-                title,
-                author,
-                cover_img
-            FROM
-                (
-                    SELECT
-                        shelf_name,
-                        us.shelf_id
-                    FROM user_shelves us
-                    LEFT JOIN shelves on us.shelf_id = shelves.id
-                    WHERE us.user_id = $1
-                ) user_shelves
-            LEFT JOIN shelf_books on user_shelves.shelf_id = shelf_books.shelf_id
+                u_books.shelf_name,
+                u_books.shelf_id,
+                u_books.google_book_id,
+                u_books.title,
+                u_books.author,
+                u_books.cover_img,
+                status
+            FROM(
+                SELECT
+                    shelf_name,
+                    user_shelves.shelf_id as shelf_id,
+                    google_book_id,
+                    title,
+                    author,
+                    cover_img
+                FROM
+                    (
+                        SELECT
+                            shelf_name,
+                            us.shelf_id
+                        FROM user_shelves us
+                        LEFT JOIN shelves on us.shelf_id = shelves.id
+                        WHERE us.user_id = $1
+                    ) user_shelves
+                LEFT JOIN shelf_books on user_shelves.shelf_id = shelf_books.shelf_id
+                ) u_books
+            LEFT JOIN user_books on u_books.shelf_id = user_books.shelf_id
+                AND u_books.google_book_id = user_books.google_book_id
+
             `, user_id
         )
         .then(books => {
