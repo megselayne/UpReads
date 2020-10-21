@@ -200,7 +200,11 @@ footer{
     }
     nav ul li {
         font-size: .8em;
-      }
+    }
+
+    .container{
+        min-height: -webkit-fill-available;
+    }
     .header{
         font-size: 1.3em;
     }
