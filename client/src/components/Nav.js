@@ -1,12 +1,18 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom';
+import Nav from 'react-bootstrap/Nav'
+import Navbar from 'react-bootstrap/Navbar'
 
-class Nav extends Component {
+class Navigation extends Component {
     render() {
         return (
-            <div className='nav-outer'>
-            <nav className='nav-container'>
-                <img className='logo' src='https://www.flaticon.com/premium-icon/icons/svg/2847/2847689.svg' />
+            <Navbar className='nav-outer' expand="lg">
+                <Navbar.Brand>
+                    <img className='logo' src='https://www.flaticon.com/premium-icon/icons/svg/2847/2847689.svg' />
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className='nav-container'>
                 <ul className='navlinks'>
                     <li>
                         <Link to='/'>Home</Link>
@@ -17,10 +23,11 @@ class Nav extends Component {
                     {this.props.auth && <li><Link to='/user/profile'>Profile</Link></li>}
                     {this.props.auth ? (<li><Link className='log' to='/auth/logout' onClick={this.props.logout}>Logout</Link></li>) : (<li><Link className='log' to='/auth/login'>Login</Link></li>)}
                 </ul>
-            </nav>
-            </div>
+                </Nav>
+                </Navbar.Collapse>
+            </Navbar>
         )
     }
 }
 
-export default Nav
+export default Navigation

@@ -1,3 +1,4 @@
+
 .container{
     display: flex;
     flex-direction: column;
@@ -47,13 +48,17 @@
     width: 100vw;
     border-bottom: 3px solid #3A5A40;
     display:flex;
-    justify-content: center;
+    justify-content: space-between;
 }
 .nav-container{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     width: 90vw;
+}
+
+.active{
+    border-bottom: 3px solid #0071e3;
 }
 .logo{
     height: 2em;
@@ -76,6 +81,12 @@ nav li{
 
 nav a{
     font-size: 1.1em;
+    text-decoration: none;
+    color: #588157;
+}
+
+nav a:hover{
+    font-weight: bold;
     text-decoration: none;
     color: #588157;
 }
@@ -198,8 +209,16 @@ footer{
     h1,h2,h3,h4{
         text-align: center;
     }
+    .nav-outer{
+        justify-content: space-between;
+    }
+    .navlinks{
+        display: flex;
+        flex-direction: column;
+    }
+
     nav ul li {
-        font-size: .8em;
+        font-size: 1em;
     }
 
     .container{
