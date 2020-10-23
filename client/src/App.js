@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from './logo.svg';
 import './App.css';
 import StateController from './components/StateController';
-import Nav from './components/Nav';
+import Navigation from './components/Nav';
 import Splash from './components/Splash';
 import Footer from './components/Footer';
 import Login from './components/Login';
@@ -74,7 +75,7 @@ class App extends Component {
   render() {
     return (
       <div className='container'>
-        <Nav auth={this.state.auth} logout={this.logout}/>
+        <Navigation auth={this.state.auth} logout={this.logout}/>
           <Route exact path='/' render={() => (<StateController currentPage='home' />)} />
           <Route exact path='/search' render={() => (<StateController currentPage='search' userState={this.state} />)} />
           <Route exact path='/shelf/:id' render={props => (<StateController currentPage='shelf' currentId={props.match.params.id} userState={this.state} />)} />
