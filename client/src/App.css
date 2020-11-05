@@ -50,11 +50,16 @@
     display:flex;
     justify-content: space-between;
 }
-.nav-container{
+/* .nav-container{
     display: flex;
     justify-content: flex-end;
     align-items: center;
     width: 90vw;
+} */
+
+.navbar-collapse{
+    display:flex;
+    justify-content: flex-end;
 }
 
 .active{
@@ -68,6 +73,8 @@
 
 .navlinks{
     display: flex;
+    width: 100%;
+    justify-content: flex-end;
 
 }
 
@@ -96,6 +103,10 @@ nav a:hover{
     color: #000;
     font-size: 1.5em;
     font-weight: bold;
+}
+
+.shelf-title:hover{
+    color: #588157;
 }
 .title{
     font-size: .8em;
@@ -215,6 +226,12 @@ footer{
     .navlinks{
         display: flex;
         flex-direction: column;
+        align-items: center;
+    }
+    .navbar-collapse{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     nav ul li {
