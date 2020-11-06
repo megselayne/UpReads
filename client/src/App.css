@@ -50,12 +50,13 @@
     display:flex;
     justify-content: space-between;
 }
-
-.nav-row{
+/* .nav-container{
     display: flex;
+    justify-content: flex-end;
+    align-items: center;
     width: 90vw;
-    justify-content: space-between;
-}
+} */
+
 .navbar-collapse{
     display:flex;
     justify-content: flex-end;
@@ -72,7 +73,7 @@
 
 .navlinks{
     display: flex;
-    width: 90vw;
+    width: 100%;
     justify-content: flex-end;
 
 }
@@ -220,7 +221,6 @@ footer{
         text-align: center;
     }
     .nav-outer{
-        flex-direction: column;
         justify-content: space-between;
     }
     .navlinks{
