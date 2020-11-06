@@ -7,12 +7,10 @@ class Navigation extends Component {
     render() {
         return (
             <Navbar className='nav-outer' expand="lg">
-                <div className='nav-row'>
                 <Navbar.Brand>
                     <img className='logo' src='https://www.flaticon.com/premium-icon/icons/svg/2847/2847689.svg' />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                </div>
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className='nav-container'>
                 <ul className='navlinks'>
