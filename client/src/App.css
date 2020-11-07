@@ -222,6 +222,7 @@ footer{
     }
     .nav-outer{
         justify-content: space-between;
+        height: 35vh;
     }
     .navlinks{
         display: flex;
