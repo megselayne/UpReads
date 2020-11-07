@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 
@@ -13,16 +12,10 @@ class Navigation extends Component {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className='nav-container'>
-                <ul className='navlinks'>
-                    <li>
-                        <Link to='/'>Home</Link>
-                    </li>
-                    <li>
-                        <Link to='/search'>Search</Link>
-                    </li>
-                    {this.props.auth && <li><Link to='/user/profile'>Profile</Link></li>}
-                    {this.props.auth ? (<li><Link className='log' to='/auth/logout' onClick={this.props.logout}>Logout</Link></li>) : (<li><Link className='log' to='/auth/login'>Login</Link></li>)}
-                </ul>
+                <Nav.Link href='/'>Home</Nav.Link>
+                <Nav.Link href='/search'>Search</Nav.Link>
+                    {this.props.auth && <Nav.Link href='/user/profile'>Profile</Nav.Link>}
+                    {this.props.auth ? (<Nav.Link className='log' href='#auth/logout' onClick={this.props.logout}>Logout</Nav.Link> ): (<Nav.Link className='log' href='/auth/login'>Login</Nav.Link>)}
                 </Nav>
                 </Navbar.Collapse>
             </Navbar>
