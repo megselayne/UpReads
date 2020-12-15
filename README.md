@@ -54,7 +54,7 @@
 - [Trello](https://trello.com/b/biDiylz8/upreads)
 
 ## Wireframes
-![wireframes](https://s3.amazonaws.com/assets.mockflow.com/app/wireframepro/company/C3ee824ba2206bfc4bd6dbfa780080d63/projects/M1e9267fed56f7149f4c51bccbc3103ff1600292020009/pages/0daa54557ac449818a9c44ab5ea7977e/image/0daa54557ac449818a9c44ab5ea7977e.png)
+![wireframes](./readme_assets/upreads_wireframes.png)
 - The initial design was for a mobile app. 
 - It has been implemented for web and will be followed by a mobile app release later.
 
